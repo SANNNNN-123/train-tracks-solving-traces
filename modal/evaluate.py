@@ -1,12 +1,14 @@
-"""Interactive, model-owned rollout on internal held-out training puzzles.
+"""Interactive, model-owned rollout on held-out puzzles.
 
-Run: uv run modal run --detach modal/evaluate.py --run-id RUN_ID --limit-puzzles 8
+Run: uv run modal run --detach modal/evaluate.py --run-id RUN_ID --dataset medium --limit-puzzles 32
 """
 
 import json
+import hashlib
 import os
 import sys
 import time
+from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -21,7 +23,10 @@ from action_policy import (SYSTEM, development_ids, legal_actions, parse_action,
 MODEL = "Qwen/Qwen2.5-1.5B-Instruct"
 VOLUME_PATH = "/mnt/train-tracks-solving-traces"
 ROOT = Path(VOLUME_PATH)
-REMOTE_SOURCE = "/root/traces/train-puzzles.jsonl"
+REMOTE_SOURCES = {
+    "small": "/root/traces/train-puzzles-small.jsonl",
+    "medium": "/root/traces/train-puzzles-medium.jsonl",
+}
 app = modal.App("train-tracks-trace-action-evaluate")
 volume = modal.Volume.from_name("train-tracks-solving-traces", create_if_missing=True)
 image = (modal.Image.debian_slim(python_version="3.12")
@@ -31,7 +36,10 @@ image = (modal.Image.debian_slim(python_version="3.12")
          .env({"HF_HUB_CACHE": f"{VOLUME_PATH}/hf-hub"})
          .add_local_file(str(HERE / "action_policy.py"), remote_path="/root/action_policy.py")
          .add_local_file(str(HERE.parent / "scripts/trace_logic.py"), remote_path="/root/trace_logic.py")
-         .add_local_file(str(HERE.parent / "source/train-puzzles.jsonl"), remote_path=REMOTE_SOURCE))
+         .add_local_file(str(HERE.parent / "source/train-puzzles.jsonl"),
+                         remote_path=REMOTE_SOURCES["small"])
+         .add_local_file(str(HERE.parent / "source/train-puzzles-medium.jsonl"),
+                         remote_path=REMOTE_SOURCES["medium"]))
 
 
 def ensure_hf_token():
@@ -51,6 +59,27 @@ def state_for(board, clue, stack):
         "branch_stack": [{"to_step": item["to_step"], "cell": item["cell"],
                           "value": item["value"]} for item in stack],
     }
+
+
+def select_medium_sample(puzzles, limit):
+    """Choose a stable sample balanced across medium board dimensions."""
+    groups = defaultdict(list)
+    for puzzle in puzzles:
+        shape = (len(puzzle["puzzle"]["rows"]), len(puzzle["puzzle"]["columns"]))
+        groups[shape].append(puzzle)
+    shapes = sorted(groups)
+    for group in groups.values():
+        group.sort(key=lambda row: hashlib.sha256(row["puzzle_id"].encode()).hexdigest())
+
+    target = min(limit, sum(map(len, groups.values())))
+    selected_by_shape = {shape: [] for shape in shapes}
+    while sum(map(len, selected_by_shape.values())) < target:
+        eligible = [shape for shape in shapes
+                    if len(selected_by_shape[shape]) < len(groups[shape])]
+        shape = min(eligible, key=lambda key: (len(selected_by_shape[key]), key))
+        selected_by_shape[shape].append(groups[shape][len(selected_by_shape[shape])])
+    selected = [puzzle for group in selected_by_shape.values() for puzzle in group]
+    return sorted(selected, key=lambda row: row["puzzle_id"])
 
 
 def rollout(model, tokenizer, record, max_actions):
@@ -134,15 +163,18 @@ def rollout(model, tokenizer, record, max_actions):
 
 
 @app.function(image=image, gpu="RTX-PRO-6000", cpu=4, memory=24576,
-              timeout=4 * 60 * 60, secrets=[modal.Secret.from_name("hf-train-tracks")],
+              timeout=24 * 60 * 60, secrets=[modal.Secret.from_name("hf-train-tracks")],
               volumes={VOLUME_PATH: volume})
-def evaluate(run_id: str, limit_puzzles: int = 8, max_actions: int = 256):
+def evaluate(run_id: str, dataset: str = "small", limit_puzzles: int = 8,
+             max_actions: int = 256):
     import torch
     from peft import PeftModel
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
     if not run_id or "/" in run_id or "\\" in run_id or run_id in {".", ".."}:
         raise ValueError("Pass a training run ID")
+    if dataset not in REMOTE_SOURCES:
+        raise ValueError("dataset must be small or medium")
     if limit_puzzles < 0 or max_actions < 1:
         raise ValueError("limit_puzzles must be nonnegative and max_actions positive")
     ensure_hf_token()
@@ -154,12 +186,23 @@ def evaluate(run_id: str, limit_puzzles: int = 8, max_actions: int = 256):
     adapter = run_dir / "adapter"
     if not (adapter / "adapter_config.json").exists():
         raise FileNotFoundError(adapter)
-    with open(REMOTE_SOURCE, encoding="utf-8") as handle:
+    with open(REMOTE_SOURCES[dataset], encoding="utf-8") as handle:
         source = [json.loads(line) for line in handle]
-    dev_ids = development_ids(record["puzzle_id"] for record in source)
-    puzzles = sorted((r for r in source if r["puzzle_id"] in dev_ids),
-                     key=lambda r: r["puzzle_id"])
-    if limit_puzzles:
+    if dataset == "small":
+        dev_ids = development_ids(record["puzzle_id"] for record in source)
+        puzzles = [r for r in source if r["puzzle_id"] in dev_ids]
+        split = "internal_puzzle_holdout_from_212_training_puzzles"
+    else:
+        puzzles = [r for r in source if r.get("split") == "test_medium"]
+        if not puzzles:
+            raise ValueError("Medium source has no test_medium puzzles")
+        split = "test_medium"
+    puzzles.sort(key=lambda r: r["puzzle_id"])
+    sample_strategy = "full_set"
+    if limit_puzzles and dataset == "medium":
+        puzzles = select_medium_sample(puzzles, limit_puzzles)
+        sample_strategy = "deterministic_board_size_stratified"
+    elif limit_puzzles:
         puzzles = puzzles[:limit_puzzles]
     tokenizer = AutoTokenizer.from_pretrained(adapter)
     base = AutoModelForCausalLM.from_pretrained(
@@ -170,9 +213,13 @@ def evaluate(run_id: str, limit_puzzles: int = 8, max_actions: int = 256):
     results = []
     for record in puzzles:
         results.append(rollout(model, tokenizer, record, max_actions))
-        print(f"development: {len(results)}/{len(puzzles)} puzzles", flush=True)
+        print(f"{dataset} evaluation: {len(results)}/{len(puzzles)} puzzles", flush=True)
+    board_shapes = Counter(f"{len(r['puzzle']['rows'])}x{len(r['puzzle']['columns'])}"
+                           for r in puzzles)
     report = {
-        "run_id": run_id, "split": "internal_puzzle_holdout_from_212_training_puzzles",
+        "run_id": run_id, "dataset": dataset, "split": split,
+        "sample_strategy": sample_strategy,
+        "board_shapes": dict(sorted(board_shapes.items())),
         "attempted": len(results),
         "solved": sum(r["solved"] for r in results),
         "valid_complete_boards": sum(r["valid_complete_board"] for r in results),
@@ -183,7 +230,8 @@ def evaluate(run_id: str, limit_puzzles: int = 8, max_actions: int = 256):
         "puzzles": results,
     }
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    output = ROOT / "rollouts" / f"development-{run_id}-{stamp}.json"
+    prefix = "development" if dataset == "small" else "test-medium"
+    output = ROOT / "rollouts" / f"{prefix}-{run_id}-{stamp}.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     volume.commit()
@@ -194,7 +242,8 @@ def evaluate(run_id: str, limit_puzzles: int = 8, max_actions: int = 256):
 
 
 @app.local_entrypoint()
-def main(run_id: str, limit_puzzles: int = 8, max_actions: int = 256):
-    call = evaluate.spawn(run_id, limit_puzzles, max_actions)
+def main(run_id: str, dataset: str = "small", limit_puzzles: int = 8,
+         max_actions: int = 256):
+    call = evaluate.spawn(run_id, dataset, limit_puzzles, max_actions)
     print(f"Evaluation call: {call.object_id}")
     print(call.get())

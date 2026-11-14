@@ -10,9 +10,19 @@ uv run modal run --detach modal/train.py --mode full
 uv run modal run --detach modal/evaluate.py --run-id RUN_ID --limit-puzzles 8
 ```
 
-Use the `run_id` printed by training. Set `--limit-puzzles 0` to evaluate all
-32 internal development puzzles. `--max-actions 256` caps a rollout. Results
-and the adapter are stored in the Modal volume `train-tracks-solving-traces`.
+For a medium-puzzle pilot, evaluate 32 puzzles, balanced across the four board
+shapes (8 each):
+
+```bash
+uv run modal run --detach modal/evaluate.py --run-id RUN_ID --dataset medium --limit-puzzles 32
+```
+
+Use the `run_id` printed by training. For medium evaluation,
+`--limit-puzzles 0` evaluates all 304 puzzles; a positive limit selects a
+deterministic sample balanced across board shapes. For small evaluation,
+`--limit-puzzles 0` evaluates all 32 internal development puzzles.
+`--max-actions 256` caps a rollout. Results and the adapter are stored in the
+Modal volume `train-tracks-solving-traces`.
 The scripts use the existing Modal secret `hf-train-tracks` for `HF_TOKEN`.
 
 `train.py` fits a LoRA adapter on Qwen2.5-1.5B-Instruct. It uses a deterministic
@@ -34,3 +44,10 @@ the final board. The JSON output records the board, menu size, and each chosen
 action. This is an internal development benchmark, not the original project's
 frozen 46 puzzle validation set. A later external test should import the frozen
 puzzle inputs without including their answers in training or policy prompts.
+
+`--dataset medium` uses puzzles marked `test_medium` in
+`source/train-puzzles-medium.jsonl`. The 32-puzzle pilot is for an initial
+estimate; keep the other 272 for a later full evaluation if you plan to tune
+the model based on pilot results. Clues and givens initialize each rollout;
+the stored solution is consulted only after the rollout for scoring. Do not
+train on `data/train_medium.jsonl` when reporting this held-out test.
