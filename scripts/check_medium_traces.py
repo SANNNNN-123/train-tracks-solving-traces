@@ -16,7 +16,7 @@ def main():
     parser.add_argument("--source", type=Path,
                         default=ROOT / "source/train-puzzles-medium.jsonl")
     parser.add_argument("--input", type=Path,
-                        default=ROOT / "output/medium/test_medium.jsonl")
+                        default=ROOT / "data/train_medium.jsonl")
     parser.add_argument("--allow-subset", action="store_true")
     args = parser.parse_args()
     records = dict(medium_records(args.source))

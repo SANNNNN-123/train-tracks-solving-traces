@@ -30,7 +30,7 @@ def main():
     parser.add_argument("--source", type=Path,
                         default=ROOT / "source/train-puzzles-medium.jsonl")
     parser.add_argument("--output", type=Path,
-                        default=ROOT / "output/medium/test_medium.jsonl")
+                        default=ROOT / "data/train_medium.jsonl")
     parser.add_argument("--limit", type=int, default=0,
                         help="First N medium puzzles for a quick check; 0 means all")
     args = parser.parse_args()
@@ -68,8 +68,9 @@ def main():
         "wrong_branch_episodes": counts["wrong_branch_episodes"],
         "output": output_label,
     }
-    summary = args.output.with_suffix(".summary.json")
-    summary.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    summary = args.output.with_name(args.output.stem + ".summary.jsonl")
+    summary.write_text(json.dumps(report, separators=(",", ":")) + "\n",
+                       encoding="utf-8")
     print(json.dumps(report, indent=2))
 
 

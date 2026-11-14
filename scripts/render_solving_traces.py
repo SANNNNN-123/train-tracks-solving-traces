@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT = ROOT / "data/train.jsonl"
-DEFAULT_MEDIUM_INPUT = ROOT / "output/medium/test_medium.jsonl"
+DEFAULT_MEDIUM_INPUT = ROOT / "data/train_medium.jsonl"
 DEFAULT_OUTPUT = ROOT / "solving-traces.html"
 
 

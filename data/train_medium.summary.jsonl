@@ -1,0 +1,1 @@
+{"source_split":"test_medium","training_eligible":false,"puzzles":304,"actions":{"deduce":54381,"branch":2414,"contradiction":289,"undo":289,"finish":304},"wrong_branch_episodes":289,"output":"data/train_medium.jsonl"}
