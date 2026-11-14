@@ -1,0 +1,27 @@
+{
+  "run_id": "qwen25-trace-policy-full-20261114T105418Z",
+  "split": "internal_puzzle_holdout_from_212_training_puzzles",
+  "attempted": 32,
+  "solved": 31,
+  "valid_complete_boards": 31,
+  "correct_cells": 1733,
+  "total_cells": 1762,
+  "failures": {
+    "action_limit": 1
+  },
+  "action_limit": 256,
+  "remote_rollout": "/mnt/train-tracks-solving-traces/rollouts/development-qwen25-trace-policy-full-20261114T105418Z-20261114T113350Z.json",
+  "source": "Downloaded Modal rollout",
+  "failed_puzzle": "09012026-small",
+  "failed_actions": 256,
+  "failed_action_types": {
+    "deduce": 241,
+    "branch": 9,
+    "contradiction": 3,
+    "undo": 3
+  },
+  "failed_correct_cells": 34,
+  "failed_total_cells": 63,
+  "failed_unresolved_cells": 15,
+  "failed_active_branches": 6
+}
