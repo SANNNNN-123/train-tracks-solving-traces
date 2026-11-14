@@ -1,0 +1,17 @@
+{
+  "run_id": "qwen25-trace-policy-full-20261114T091604Z",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "train_examples": 9642.0,
+  "development_examples": 1707.0,
+  "optimizer_steps": 603.0,
+  "train_runtime_seconds": 712.0514,
+  "training_loss_points": 60,
+  "first_training_loss": 0.9076,
+  "last_training_loss": 0.1187,
+  "development_loss_before": 1.2755486965179443,
+  "development_loss_after": 0.11908680200576782,
+  "plots": [
+    "output\\training\\run-02-qwen25-trace-policy-full-20261114T091604Z\\training-loss.png",
+    "output\\training\\run-02-qwen25-trace-policy-full-20261114T091604Z\\development-loss.png"
+  ]
+}
