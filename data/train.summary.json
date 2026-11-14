@@ -1,0 +1,13 @@
+{
+  "source_split": "train",
+  "puzzles": 212,
+  "actions": {
+    "deduce": 23225,
+    "branch": 794,
+    "contradiction": 167,
+    "undo": 167,
+    "finish": 212,
+    "wrong_branch_episodes": 167
+  },
+  "output": "data/train.jsonl"
+}
