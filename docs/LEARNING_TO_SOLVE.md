@@ -56,10 +56,10 @@ recoverable failures, not positive branch labels.
    `expert_policy_label: false` branch rows from positive imitation targets.
    Balance action types so the 23,225 deduction rows do not overwhelm the
    recovery examples.
-3. **Build an interactive evaluator.** The model chooses a rule, cell, and
-   action. Code checks it against visible count, port, and path constraints,
-   applies legal actions, and reports contradictions. The checker must not
-   choose the tile or call the offline solution at evaluation time.
+3. **Constrain action selection.** The evaluator enumerates actions justified
+   by visible count, port, and path constraints. The model chooses a menu entry;
+   code applies that action and reports contradictions. The source solution is
+   not used to generate the menu or choose a tile at evaluation time.
 4. **Train on model-created states.** Collect partial boards from the model's
    own rollouts, label recoverable next actions offline, and retrain. This
    addresses the gap between correct teacher histories and the states reached

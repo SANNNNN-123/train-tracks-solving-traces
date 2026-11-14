@@ -113,8 +113,11 @@ partial state, and the later contradiction and undo are valid actions.
 
 ## Scope
 
-Only the original project's **train** puzzle IDs appear here. The successful
+The published `data/train.jsonl` contains only the original project's
+**train** puzzle IDs. The successful
 branch tile is selected using an audited training solution; the input state
 contains only the current clues, givens, candidate domains, and branch stack.
-The validation and test puzzle solutions are absent from this repository.
+Optional held-out medium traces are generated in `data/train_medium.jsonl`,
+with source solutions in `source/train-puzzles-medium.jsonl`. They remain separate from training and excluded by the Hugging Face
+uploader. They are for inspection and replay verification only.
 This is process-supervision data, not an evaluation of a trained solver.
