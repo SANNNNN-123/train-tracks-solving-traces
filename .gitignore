@@ -3,3 +3,5 @@ __pycache__/
 .pytest_cache/
 .env
 .agents/
+output/models/*
+output/models/run-03/adapter/
