@@ -1,0 +1,58 @@
+﻿2026-11-14 14:54:34+08:00 
+2026-11-14 14:54:34+08:00 [1A
+Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]
+2026-11-14 14:54:35+08:00 
+2026-11-14 14:54:35+08:00 [1A
+2026-11-14 14:54:35+08:00 Loading weights:   7%|▋         | 23/338 [00:00<00:03, 88.91it/s]
+2026-11-14 14:54:35+08:00 [1A
+2026-11-14 14:54:35+08:00 Loading weights:  19%|█▊        | 63/338 [00:00<00:01, 199.51it/s]
+2026-11-14 14:54:35+08:00 [1A
+2026-11-14 14:54:35+08:00 Loading weights:  27%|██▋       | 91/338 [00:00<00:01, 142.43it/s]
+2026-11-14 14:54:35+08:00 [1A
+2026-11-14 14:54:35+08:00 Loading weights: 100%|██████████| 338/338 [00:00<00:00, 480.50it/s]
+2026-11-14 14:54:38+08:00 development: 1/32 puzzles
+2026-11-14 14:54:38+08:00 development: 2/32 puzzles
+2026-11-14 14:54:39+08:00 development: 3/32 puzzles
+2026-11-14 14:54:40+08:00 development: 4/32 puzzles
+2026-11-14 14:54:40+08:00 development: 5/32 puzzles
+2026-11-14 14:54:41+08:00 development: 6/32 puzzles
+2026-11-14 14:54:41+08:00 development: 7/32 puzzles
+2026-11-14 14:54:42+08:00 development: 8/32 puzzles
+2026-11-14 14:54:42+08:00 development: 9/32 puzzles
+2026-11-14 14:54:43+08:00 development: 10/32 puzzles
+2026-11-14 14:54:44+08:00 development: 11/32 puzzles
+2026-11-14 14:54:44+08:00 development: 12/32 puzzles
+2026-11-14 14:54:45+08:00 development: 13/32 puzzles
+2026-11-14 14:54:45+08:00 development: 14/32 puzzles
+2026-11-14 14:54:46+08:00 development: 15/32 puzzles
+2026-11-14 14:54:47+08:00 development: 16/32 puzzles
+2026-11-14 14:54:47+08:00 development: 17/32 puzzles
+2026-11-14 14:54:48+08:00 development: 18/32 puzzles
+2026-11-14 14:54:48+08:00 development: 19/32 puzzles
+2026-11-14 14:54:49+08:00 development: 20/32 puzzles
+2026-11-14 14:54:50+08:00 development: 21/32 puzzles
+2026-11-14 14:54:50+08:00 development: 22/32 puzzles
+2026-11-14 14:54:51+08:00 development: 23/32 puzzles
+2026-11-14 14:54:52+08:00 development: 24/32 puzzles
+2026-11-14 14:54:53+08:00 development: 25/32 puzzles
+2026-11-14 14:54:53+08:00 development: 26/32 puzzles
+2026-11-14 14:54:54+08:00 development: 27/32 puzzles
+2026-11-14 14:54:55+08:00 development: 28/32 puzzles
+2026-11-14 14:54:55+08:00 development: 29/32 puzzles
+2026-11-14 14:54:56+08:00 development: 30/32 puzzles
+2026-11-14 14:54:56+08:00 development: 31/32 puzzles
+2026-11-14 14:54:57+08:00 development: 32/32 puzzles
+2026-11-14 14:54:58+08:00 {
+2026-11-14 14:54:58+08:00   "run_id": "qwen25-trace-policy-full-20261114T061507Z",
+2026-11-14 14:54:58+08:00   "split": "internal_puzzle_holdout_from_212_training_puzzles",
+2026-11-14 14:54:58+08:00   "attempted": 32,
+2026-11-14 14:54:58+08:00   "solved": 0,
+2026-11-14 14:54:58+08:00   "valid_complete_boards": 0,
+2026-11-14 14:54:58+08:00   "correct_cells": 106,
+2026-11-14 14:54:58+08:00   "total_cells": 1762,
+2026-11-14 14:54:58+08:00   "failures": {
+2026-11-14 14:54:58+08:00     "unsupported_rule": 26,
+2026-11-14 14:54:58+08:00     "wrong_candidates": 6
+2026-11-14 14:54:58+08:00   },
+2026-11-14 14:54:58+08:00   "output": "/mnt/train-tracks-solving-traces/rollouts/development-qwen25-trace-policy-full-20261114T061507Z-20261114T065457Z.json"
+2026-11-14 14:54:58+08:00 }

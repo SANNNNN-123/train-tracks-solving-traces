@@ -1,0 +1,9482 @@
+{
+  "run_id": "qwen25-trace-policy-full-20261114T061507Z",
+  "split": "internal_puzzle_holdout_from_212_training_puzzles",
+  "attempted": 32,
+  "solved": 0,
+  "valid_complete_boards": 0,
+  "correct_cells": 106,
+  "total_cells": 1762,
+  "failures": {
+    "unsupported_rule": 26,
+    "wrong_candidates": 6
+  },
+  "puzzles": [
+    {
+      "puzzle_id": "01022026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 2,
+      "total_cells": 48,
+      "actions": 1,
+      "seconds": 0.994,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "NW",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "SE"
+        ],
+        [
+          "XX",
+          "SE",
+          "EW",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "XX",
+          "NS",
+          "SE",
+          "NW",
+          "SE",
+          "EW",
+          "EW",
+          "NW"
+        ],
+        [
+          "SE",
+          "NW",
+          "NS",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "NW",
+          "XX",
+          "NS",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              1,
+              4,
+              7,
+              4,
+              3,
+              3
+            ],
+            "column_clues": [
+              2,
+              3,
+              5,
+              3,
+              4,
+              1,
+              1,
+              3
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 8,
+                "value": "SE"
+              },
+              {
+                "row": 5,
+                "column": 1,
+                "value": "NW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                32
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                16,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":2},\"cell\":{\"row\":1,\"column\":2},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 2
+            },
+            "cell": {
+              "row": 1,
+              "column": 2
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "02012026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "wrong_candidates",
+      "correct_cells": 7,
+      "total_cells": 81,
+      "actions": 1,
+      "seconds": 0.594,
+      "prediction": [
+        [
+          null,
+          null,
+          "EW",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW",
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "EW",
+          null,
+          "EW",
+          null,
+          "EW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SW",
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "SW"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "NW"
+        ],
+        [
+          "SE",
+          "NW",
+          "XX",
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "NS",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "EW",
+          "EW",
+          "EW",
+          "EW"
+        ],
+        [
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NE",
+          "EW",
+          "EW",
+          "EW",
+          "SW",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              4,
+              4,
+              4,
+              5,
+              5,
+              7,
+              1,
+              2,
+              5
+            ],
+            "column_clues": [
+              4,
+              7,
+              2,
+              4,
+              5,
+              5,
+              4,
+              3,
+              3
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 3,
+                "value": "EW"
+              },
+              {
+                "row": 3,
+                "column": 8,
+                "value": "EW"
+              },
+              {
+                "row": 4,
+                "column": 7,
+                "value": "EW"
+              },
+              {
+                "row": 6,
+                "column": 5,
+                "value": "EW"
+              },
+              {
+                "row": 6,
+                "column": 7,
+                "value": "EW"
+              },
+              {
+                "row": 6,
+                "column": 9,
+                "value": "EW"
+              },
+              {
+                "row": 9,
+                "column": 6,
+                "value": "SW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                4,
+                101,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                4,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                4,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                4,
+                127,
+                4,
+                127,
+                4
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                64,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":4},\"cell\":{\"row\":1,\"column\":4},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 4
+            },
+            "cell": {
+              "row": 1,
+              "column": 4
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "wrong_candidates"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "06022026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 72,
+      "actions": 1,
+      "seconds": 0.556,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NW",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "NW",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "EW",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "SW"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "SE",
+          "EW",
+          "SW",
+          "SE",
+          "SW",
+          "XX",
+          "XX",
+          "SE",
+          "NW"
+        ],
+        [
+          "NW",
+          "XX",
+          "NS",
+          "NS",
+          "NE",
+          "EW",
+          "SW",
+          "NS",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "NS",
+          "NS",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              3,
+              4,
+              3,
+              1,
+              7,
+              7,
+              4,
+              4
+            ],
+            "column_clues": [
+              2,
+              1,
+              4,
+              6,
+              4,
+              3,
+              5,
+              5,
+              3
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 6,
+                "value": "NW"
+              },
+              {
+                "row": 3,
+                "column": 9,
+                "value": "SW"
+              },
+              {
+                "row": 6,
+                "column": 1,
+                "value": "NW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                16,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                64
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                16,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":1},\"cell\":{\"row\":1,\"column\":1},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 1
+            },
+            "cell": {
+              "row": 1,
+              "column": 1
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "07052026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 49,
+      "actions": 1,
+      "seconds": 0.554,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          "NW",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "NW",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "SE",
+          "NW",
+          "XX",
+          "NS",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "NS",
+          "XX",
+          "XX",
+          "NS",
+          "NE",
+          "EW",
+          "SW"
+        ],
+        [
+          "NE",
+          "SW",
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "NE"
+        ],
+        [
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              2,
+              3,
+              4,
+              5,
+              5,
+              2
+            ],
+            "column_clues": [
+              3,
+              5,
+              4,
+              5,
+              3,
+              1,
+              2
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 4,
+                "value": "NW"
+              },
+              {
+                "row": 4,
+                "column": 2,
+                "value": "NW"
+              },
+              {
+                "row": 6,
+                "column": 7,
+                "value": "NE"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                16,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                16,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                8
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":1},\"cell\":{\"row\":1,\"column\":1},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 1
+            },
+            "cell": {
+              "row": 1,
+              "column": 1
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "07092026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 42,
+      "actions": 1,
+      "seconds": 0.552,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          "NW",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "SE",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "NE",
+          "SW",
+          "SE",
+          "SW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NE",
+          "NW",
+          "NS",
+          "XX",
+          "SE",
+          "EW"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "SE",
+          "NW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              3,
+              2,
+              4,
+              5,
+              3,
+              2
+            ],
+            "column_clues": [
+              2,
+              4,
+              3,
+              5,
+              2,
+              2,
+              1
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 4,
+                "value": "NW"
+              },
+              {
+                "row": 3,
+                "column": 3,
+                "value": "SE"
+              },
+              {
+                "row": 4,
+                "column": 7,
+                "value": "EW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                16,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                32,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                4
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":6},\"cell\":{\"row\":1,\"column\":6},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 6
+            },
+            "cell": {
+              "row": 1,
+              "column": 6
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "08032026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 64,
+      "actions": 1,
+      "seconds": 0.582,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          "NE",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "SW",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "SW",
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "SW",
+          "XX",
+          "NE",
+          "SW"
+        ],
+        [
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "NS",
+          "SE",
+          "EW",
+          "NW"
+        ],
+        [
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "XX"
+        ],
+        [
+          "NE",
+          "EW",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "SW",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              3,
+              5,
+              7,
+              3,
+              3,
+              3,
+              3
+            ],
+            "column_clues": [
+              4,
+              2,
+              4,
+              3,
+              7,
+              4,
+              3,
+              2
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 4,
+                "value": "NE"
+              },
+              {
+                "row": 7,
+                "column": 3,
+                "value": "SW"
+              },
+              {
+                "row": 8,
+                "column": 5,
+                "value": "SW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                8,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                64,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                64,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":1},\"cell\":{\"row\":2,\"column\":1},\"candidates\":[\"XX\",\"SE\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 1
+            },
+            "cell": {
+              "row": 2,
+              "column": 1
+            },
+            "candidates": [
+              "XX",
+              "SE"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "09012026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 63,
+      "actions": 1,
+      "seconds": 0.552,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "NE",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NE"
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "SE",
+          "SW",
+          "NS",
+          "NE",
+          "EW",
+          "SW"
+        ],
+        [
+          "SE",
+          "NW",
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "NS",
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "NE",
+          "EW",
+          "EW",
+          "EW",
+          "SW",
+          "XX",
+          "NE"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "SW"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              6,
+              5,
+              4,
+              6,
+              2,
+              2,
+              1,
+              1
+            ],
+            "column_clues": [
+              3,
+              3,
+              4,
+              5,
+              4,
+              3,
+              7
+            ],
+            "givens": [
+              {
+                "row": 4,
+                "column": 3,
+                "value": "NE"
+              },
+              {
+                "row": 5,
+                "column": 7,
+                "value": "NE"
+              },
+              {
+                "row": 9,
+                "column": 7,
+                "value": "NE"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                8,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                8
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                8
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":3},\"cell\":{\"row\":1,\"column\":3},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 3
+            },
+            "cell": {
+              "row": 1,
+              "column": 3
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "09052026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "wrong_candidates",
+      "correct_cells": 3,
+      "total_cells": 42,
+      "actions": 1,
+      "seconds": 0.551,
+      "prediction": [
+        [
+          null,
+          null,
+          "SW",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SW",
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "SE",
+          "NW",
+          "NE",
+          "EW",
+          "EW",
+          "EW",
+          "SW"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE"
+        ],
+        [
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "SW",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              7,
+              3,
+              2,
+              2,
+              3
+            ],
+            "column_clues": [
+              2,
+              4,
+              4,
+              3,
+              2,
+              2,
+              2
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 3,
+                "value": "SW"
+              },
+              {
+                "row": 3,
+                "column": 7,
+                "value": "NE"
+              },
+              {
+                "row": 6,
+                "column": 6,
+                "value": "SW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                64,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                8
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                64,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":2},\"cell\":{\"row\":1,\"column\":2},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 2
+            },
+            "cell": {
+              "row": 1,
+              "column": 2
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "wrong_candidates"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "09082026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 72,
+      "actions": 1,
+      "seconds": 0.561,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          "EW",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "SE",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "EW",
+          "EW",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "SE"
+        ],
+        [
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "NW",
+          "NS"
+        ],
+        [
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "NE",
+          "EW",
+          "SW",
+          "XX",
+          "NE",
+          "EW",
+          "EW",
+          "EW",
+          "NW"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              7,
+              4,
+              6,
+              3,
+              8,
+              2,
+              1,
+              2
+            ],
+            "column_clues": [
+              4,
+              3,
+              4,
+              4,
+              4,
+              3,
+              3,
+              4,
+              4
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 4,
+                "value": "EW"
+              },
+              {
+                "row": 2,
+                "column": 9,
+                "value": "SE"
+              },
+              {
+                "row": 8,
+                "column": 3,
+                "value": "SE"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                4,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                32
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                32,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":1},\"cell\":{\"row\":1,\"column\":1},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 1
+            },
+            "cell": {
+              "row": 1,
+              "column": 1
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "09102026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 5,
+      "total_cells": 63,
+      "actions": 1,
+      "seconds": 0.554,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "EW",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "SE",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW"
+        ],
+        [
+          null,
+          "SE",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "NE",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "EW",
+          "SW",
+          "XX",
+          "NS",
+          "XX"
+        ],
+        [
+          "SE",
+          "EW",
+          "EW",
+          "EW",
+          "EW",
+          "NW",
+          "XX",
+          "NS",
+          "XX"
+        ],
+        [
+          "NE",
+          "EW",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "EW"
+        ],
+        [
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              3,
+              2,
+              5,
+              5,
+              7,
+              5,
+              2
+            ],
+            "column_clues": [
+              2,
+              3,
+              5,
+              3,
+              5,
+              3,
+              3,
+              4,
+              1
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 6,
+                "value": "EW"
+              },
+              {
+                "row": 3,
+                "column": 4,
+                "value": "EW"
+              },
+              {
+                "row": 5,
+                "column": 1,
+                "value": "SE"
+              },
+              {
+                "row": 6,
+                "column": 9,
+                "value": "EW"
+              },
+              {
+                "row": 7,
+                "column": 2,
+                "value": "SE"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                4,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                4,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                32,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                4
+              ],
+              [
+                9,
+                32,
+                29,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":2},\"cell\":{\"row\":1,\"column\":2},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 2
+            },
+            "cell": {
+              "row": 1,
+              "column": 2
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "10022026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 56,
+      "actions": 1,
+      "seconds": 0.642,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "NS",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "EW",
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "SE",
+          "SW",
+          "NS",
+          "NS",
+          "SE",
+          "SW"
+        ],
+        [
+          "XX",
+          "NS",
+          "NS",
+          "NS",
+          "NE",
+          "NW",
+          "NS"
+        ],
+        [
+          "EW",
+          "NW",
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "NE"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              6,
+              6,
+              5,
+              2,
+              2,
+              2,
+              2
+            ],
+            "column_clues": [
+              1,
+              3,
+              7,
+              8,
+              3,
+              2,
+              3
+            ],
+            "givens": [
+              {
+                "row": 2,
+                "column": 4,
+                "value": "NS"
+              },
+              {
+                "row": 4,
+                "column": 1,
+                "value": "EW"
+              },
+              {
+                "row": 4,
+                "column": 7,
+                "value": "NE"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                2,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                4,
+                127,
+                127,
+                127,
+                127,
+                127,
+                8
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":2},\"cell\":{\"row\":2,\"column\":2},\"candidates\":[\"XX\",\"NS\",\"NW\",\"SW\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 2
+            },
+            "cell": {
+              "row": 2,
+              "column": 2
+            },
+            "candidates": [
+              "XX",
+              "NS",
+              "NW",
+              "SW"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "11092026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 49,
+      "actions": 1,
+      "seconds": 0.646,
+      "prediction": [
+        [
+          "SW",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "NS",
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "NE",
+          "EW",
+          "SW",
+          "SE",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "NS",
+          "NE",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "NE",
+          "SW"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "SW",
+          "SE",
+          "NW"
+        ],
+        [
+          "XX",
+          "XX",
+          "SE",
+          "NW",
+          "NE",
+          "NW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              1,
+              5,
+              4,
+              4,
+              4,
+              4,
+              1
+            ],
+            "column_clues": [
+              2,
+              1,
+              5,
+              5,
+              4,
+              4,
+              2
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 1,
+                "value": "SW"
+              },
+              {
+                "row": 5,
+                "column": 7,
+                "value": "NW"
+              },
+              {
+                "row": 7,
+                "column": 3,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                64,
+                101,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                16
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                2,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":2},\"cell\":{\"row\":2,\"column\":2},\"candidates\":[\"XX\",\"NS\",\"NE\",\"SE\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 2
+            },
+            "cell": {
+              "row": 2,
+              "column": 2
+            },
+            "candidates": [
+              "XX",
+              "NS",
+              "NE",
+              "SE"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "14032026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "wrong_candidates",
+      "correct_cells": 4,
+      "total_cells": 36,
+      "actions": 1,
+      "seconds": 0.656,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "SE",
+          null,
+          null,
+          "NE",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "NS",
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "SE",
+          "SW",
+          "NS",
+          "NE",
+          "SW"
+        ],
+        [
+          "SE",
+          "NW",
+          "NE",
+          "NW",
+          "XX",
+          "NS"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "NE"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              5,
+              5,
+              3,
+              1,
+              1
+            ],
+            "column_clues": [
+              2,
+              5,
+              2,
+              3,
+              2,
+              3
+            ],
+            "givens": [
+              {
+                "row": 2,
+                "column": 2,
+                "value": "SE"
+              },
+              {
+                "row": 2,
+                "column": 5,
+                "value": "NE"
+              },
+              {
+                "row": 4,
+                "column": 6,
+                "value": "NE"
+              },
+              {
+                "row": 6,
+                "column": 2,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                32,
+                127,
+                127,
+                8,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                8
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                2,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":3},\"cell\":{\"row\":2,\"column\":3},\"candidates\":[\"XX\",\"EW\",\"SE\",\"SW\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 3
+            },
+            "cell": {
+              "row": 2,
+              "column": 3
+            },
+            "candidates": [
+              "XX",
+              "EW",
+              "SE",
+              "SW"
+            ]
+          },
+          "valid": false,
+          "reason": "wrong_candidates"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "14092026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "wrong_candidates",
+      "correct_cells": 3,
+      "total_cells": 49,
+      "actions": 1,
+      "seconds": 0.653,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          "NS",
+          null,
+          null
+        ],
+        [
+          "SE",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NS",
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "SE",
+          "NW",
+          "NS",
+          "XX",
+          "NE",
+          "EW",
+          "SW"
+        ],
+        [
+          "NS",
+          "XX",
+          "NE",
+          "EW",
+          "EW",
+          "EW",
+          "NW"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NE",
+          "EW",
+          "EW",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              3,
+              6,
+              6,
+              2,
+              1,
+              5,
+              1
+            ],
+            "column_clues": [
+              3,
+              5,
+              4,
+              2,
+              4,
+              4,
+              2
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 5,
+                "value": "NS"
+              },
+              {
+                "row": 2,
+                "column": 1,
+                "value": "SE"
+              },
+              {
+                "row": 7,
+                "column": 6,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                2,
+                101,
+                65
+              ],
+              [
+                32,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                2,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":2},\"cell\":{\"row\":2,\"column\":2},\"candidates\":[\"XX\",\"NS\",\"NW\",\"SW\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 2
+            },
+            "cell": {
+              "row": 2,
+              "column": 2
+            },
+            "candidates": [
+              "XX",
+              "NS",
+              "NW",
+              "SW"
+            ]
+          },
+          "valid": false,
+          "reason": "wrong_candidates"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "15012026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 4,
+      "total_cells": 63,
+      "actions": 1,
+      "seconds": 0.656,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NS",
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "NE",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "NW",
+          null,
+          null,
+          null,
+          "NE",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "SE",
+          "EW",
+          "EW",
+          "SW",
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "XX"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "NS",
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "SE",
+          "NW",
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "NE",
+          "EW",
+          "SW"
+        ],
+        [
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "SE",
+          "EW",
+          "NW"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              1,
+              6,
+              5,
+              3,
+              7,
+              6,
+              2
+            ],
+            "column_clues": [
+              4,
+              4,
+              1,
+              4,
+              2,
+              4,
+              7,
+              2,
+              2
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 7,
+                "value": "NS"
+              },
+              {
+                "row": 3,
+                "column": 1,
+                "value": "NE"
+              },
+              {
+                "row": 6,
+                "column": 1,
+                "value": "NW"
+              },
+              {
+                "row": 6,
+                "column": 5,
+                "value": "NE"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                101,
+                2,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                8,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                16,
+                127,
+                127,
+                127,
+                8,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":2},\"cell\":{\"row\":2,\"column\":2},\"candidates\":[\"XX\",\"NS\",\"NE\",\"SE\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 2
+            },
+            "cell": {
+              "row": 2,
+              "column": 2
+            },
+            "candidates": [
+              "XX",
+              "NS",
+              "NE",
+              "SE"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "15102026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 2,
+      "total_cells": 48,
+      "actions": 1,
+      "seconds": 0.566,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "NW",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "SE",
+          "SW",
+          "XX"
+        ],
+        [
+          "SE",
+          "EW",
+          "NW",
+          "NE",
+          "EW",
+          "NW",
+          "NS",
+          "XX"
+        ],
+        [
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "NW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "SE",
+          "EW"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "NW",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              4,
+              7,
+              3,
+              2,
+              3,
+              3
+            ],
+            "column_clues": [
+              2,
+              1,
+              2,
+              2,
+              4,
+              5,
+              5,
+              1
+            ],
+            "givens": [
+              {
+                "row": 3,
+                "column": 1,
+                "value": "NW"
+              },
+              {
+                "row": 5,
+                "column": 8,
+                "value": "EW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                16,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                4
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":2},\"cell\":{\"row\":1,\"column\":2},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 2
+            },
+            "cell": {
+              "row": 1,
+              "column": 2
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "16032026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 2,
+      "total_cells": 42,
+      "actions": 1,
+      "seconds": 0.655,
+      "prediction": [
+        [
+          null,
+          null,
+          "NE",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "SW",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "SE",
+          "SW"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "NS"
+        ],
+        [
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "NE",
+          "EW",
+          "SW",
+          "SE",
+          "EW",
+          "NW"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              1,
+              3,
+              3,
+              2,
+              6,
+              2
+            ],
+            "column_clues": [
+              2,
+              1,
+              3,
+              6,
+              3,
+              4
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 3,
+                "value": "NE"
+              },
+              {
+                "row": 5,
+                "column": 1,
+                "value": "SW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                8,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                64,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":2},\"cell\":{\"row\":2,\"column\":2},\"candidates\":[\"XX\",\"NS\",\"NW\",\"SW\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 2
+            },
+            "cell": {
+              "row": 2,
+              "column": 2
+            },
+            "candidates": [
+              "XX",
+              "NS",
+              "NW",
+              "SW"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "16082026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 4,
+      "total_cells": 63,
+      "actions": 1,
+      "seconds": 0.565,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "SW",
+          null,
+          null,
+          null,
+          "EW",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW",
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SW"
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "SW",
+          "XX",
+          "NS",
+          "NE",
+          "EW",
+          "EW",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "NE",
+          "EW",
+          "NW",
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "NW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "EW",
+          "EW",
+          "SW"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              3,
+              2,
+              3,
+              7,
+              7,
+              5
+            ],
+            "column_clues": [
+              2,
+              1,
+              6,
+              4,
+              6,
+              3,
+              3,
+              3,
+              1
+            ],
+            "givens": [
+              {
+                "row": 5,
+                "column": 1,
+                "value": "SW"
+              },
+              {
+                "row": 5,
+                "column": 5,
+                "value": "EW"
+              },
+              {
+                "row": 6,
+                "column": 7,
+                "value": "EW"
+              },
+              {
+                "row": 7,
+                "column": 9,
+                "value": "SW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                64,
+                127,
+                127,
+                127,
+                4,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                4,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                29,
+                29,
+                64
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":2},\"cell\":{\"row\":1,\"column\":2},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 2
+            },
+            "cell": {
+              "row": 1,
+              "column": 2
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "17012026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 4,
+      "total_cells": 64,
+      "actions": 1,
+      "seconds": 0.564,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          "EW",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SW",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NS",
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX"
+        ],
+        [
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX"
+        ],
+        [
+          "NS",
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "SW",
+          "NS",
+          "SE"
+        ],
+        [
+          "NS",
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "NS",
+          "NE",
+          "NW"
+        ],
+        [
+          "NE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              4,
+              3,
+              4,
+              7,
+              6,
+              3,
+              1,
+              1
+            ],
+            "column_clues": [
+              4,
+              3,
+              5,
+              2,
+              2,
+              7,
+              4,
+              2
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 4,
+                "value": "EW"
+              },
+              {
+                "row": 2,
+                "column": 7,
+                "value": "SW"
+              },
+              {
+                "row": 4,
+                "column": 8,
+                "value": "SE"
+              },
+              {
+                "row": 8,
+                "column": 6,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                4,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                64,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                32
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                2,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":1},\"cell\":{\"row\":1,\"column\":1},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 1
+            },
+            "cell": {
+              "row": 1,
+              "column": 1
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "18032026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 4,
+      "total_cells": 56,
+      "actions": 1,
+      "seconds": 0.651,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          "SW",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "SW",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "SW",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "NE",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "NE",
+          "EW"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "SE",
+          "SW",
+          "XX"
+        ],
+        [
+          "SW",
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "NS",
+          "XX"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX"
+        ],
+        [
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "SE",
+          "NW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "NW",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              4,
+              3,
+              4,
+              4,
+              3,
+              4,
+              3
+            ],
+            "column_clues": [
+              2,
+              2,
+              6,
+              5,
+              5,
+              6,
+              1
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 4,
+                "value": "SW"
+              },
+              {
+                "row": 3,
+                "column": 7,
+                "value": "EW"
+              },
+              {
+                "row": 5,
+                "column": 1,
+                "value": "SW"
+              },
+              {
+                "row": 7,
+                "column": 3,
+                "value": "SW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                64,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                4
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                64,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                64,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":2},\"cell\":{\"row\":2,\"column\":2},\"candidates\":[\"XX\",\"NS\",\"NW\",\"SW\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 2
+            },
+            "cell": {
+              "row": 2,
+              "column": 2
+            },
+            "candidates": [
+              "XX",
+              "NS",
+              "NW",
+              "SW"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "19052026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 5,
+      "total_cells": 64,
+      "actions": 1,
+      "seconds": 0.563,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "SE",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "NW",
+          null,
+          null,
+          null,
+          null,
+          "NS"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "NS",
+          null,
+          null,
+          null,
+          "NS",
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "SW",
+          "XX",
+          "NE",
+          "SW"
+        ],
+        [
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "NW"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "NW",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              5,
+              5,
+              4,
+              3,
+              4,
+              4,
+              2,
+              2
+            ],
+            "column_clues": [
+              2,
+              5,
+              4,
+              3,
+              3,
+              4,
+              4,
+              4
+            ],
+            "givens": [
+              {
+                "row": 3,
+                "column": 3,
+                "value": "SE"
+              },
+              {
+                "row": 4,
+                "column": 3,
+                "value": "NW"
+              },
+              {
+                "row": 4,
+                "column": 8,
+                "value": "NS"
+              },
+              {
+                "row": 8,
+                "column": 2,
+                "value": "NS"
+              },
+              {
+                "row": 8,
+                "column": 6,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                32,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                16,
+                127,
+                127,
+                127,
+                127,
+                2
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                2,
+                29,
+                29,
+                29,
+                2,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":3,\"column\":1},\"cell\":{\"row\":3,\"column\":1},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 3,
+              "column": 1
+            },
+            "cell": {
+              "row": 3,
+              "column": 1
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "19072026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "wrong_candidates",
+      "correct_cells": 2,
+      "total_cells": 56,
+      "actions": 1,
+      "seconds": 0.653,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "SW",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NS",
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "SW",
+          "NS",
+          "NE",
+          "EW",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "SW"
+        ],
+        [
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "NW"
+        ],
+        [
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX"
+        ],
+        [
+          "NE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              5,
+              5,
+              3,
+              4,
+              3,
+              3,
+              1
+            ],
+            "column_clues": [
+              6,
+              7,
+              2,
+              1,
+              2,
+              5,
+              3
+            ],
+            "givens": [
+              {
+                "row": 2,
+                "column": 1,
+                "value": "SW"
+              },
+              {
+                "row": 8,
+                "column": 6,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                64,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                2,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":2},\"cell\":{\"row\":2,\"column\":2},\"candidates\":[\"XX\",\"NS\",\"NW\",\"SW\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 2
+            },
+            "cell": {
+              "row": 2,
+              "column": 2
+            },
+            "candidates": [
+              "XX",
+              "NS",
+              "NW",
+              "SW"
+            ]
+          },
+          "valid": false,
+          "reason": "wrong_candidates"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "19082026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 48,
+      "actions": 1,
+      "seconds": 0.653,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "EW",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "NS",
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "NE",
+          "SW"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "SE",
+          "NW"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "SE",
+          "NW",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "EW",
+          "NW",
+          "SE",
+          "NW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              4,
+              3,
+              3,
+              3,
+              2,
+              4,
+              2,
+              1
+            ],
+            "column_clues": [
+              1,
+              6,
+              3,
+              6,
+              4,
+              2
+            ],
+            "givens": [
+              {
+                "row": 3,
+                "column": 6,
+                "value": "NW"
+              },
+              {
+                "row": 6,
+                "column": 1,
+                "value": "EW"
+              },
+              {
+                "row": 8,
+                "column": 4,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                16
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                4,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                2,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":2},\"cell\":{\"row\":2,\"column\":2},\"candidates\":[\"XX\",\"NS\",\"NE\",\"SE\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 2
+            },
+            "cell": {
+              "row": 2,
+              "column": 2
+            },
+            "candidates": [
+              "XX",
+              "NS",
+              "NE",
+              "SE"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "21062026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 4,
+      "total_cells": 48,
+      "actions": 2,
+      "seconds": 1.199,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "EW",
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "NS",
+          "SE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "NS",
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "NE",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "NS",
+          "SE"
+        ],
+        [
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "NS"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "NS",
+          "NS"
+        ],
+        [
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "NE",
+          "NW"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              2,
+              4,
+              4,
+              3,
+              4,
+              4,
+              1,
+              1
+            ],
+            "column_clues": [
+              3,
+              5,
+              5,
+              1,
+              5,
+              4
+            ],
+            "givens": [
+              {
+                "row": 2,
+                "column": 4,
+                "value": "EW"
+              },
+              {
+                "row": 3,
+                "column": 5,
+                "value": "NS"
+              },
+              {
+                "row": 3,
+                "column": 6,
+                "value": "SE"
+              },
+              {
+                "row": 8,
+                "column": 3,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                4,
+                127,
+                17
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                2,
+                32
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                2,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":6},\"cell\":{\"row\":2,\"column\":6},\"candidates\":[\"XX\",\"NW\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 6
+            },
+            "cell": {
+              "row": 2,
+              "column": 6
+            },
+            "candidates": [
+              "XX",
+              "NW"
+            ]
+          },
+          "valid": true,
+          "reason": "ok"
+        },
+        {
+          "step": 1,
+          "state": {
+            "row_clues": [
+              2,
+              4,
+              4,
+              3,
+              4,
+              4,
+              1,
+              1
+            ],
+            "column_clues": [
+              3,
+              5,
+              5,
+              1,
+              5,
+              4
+            ],
+            "givens": [
+              {
+                "row": 2,
+                "column": 4,
+                "value": "EW"
+              },
+              {
+                "row": 3,
+                "column": 5,
+                "value": "NS"
+              },
+              {
+                "row": 3,
+                "column": 6,
+                "value": "SE"
+              },
+              {
+                "row": 8,
+                "column": 3,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                4,
+                127,
+                17
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                2,
+                32
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                2,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":6},\"cell\":{\"row\":2,\"column\":6},\"candidates\":[\"XX\",\"NW\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 6
+            },
+            "cell": {
+              "row": 2,
+              "column": 6
+            },
+            "candidates": [
+              "XX",
+              "NW"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "22102026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 4,
+      "total_cells": 64,
+      "actions": 1,
+      "seconds": 0.586,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          "NE",
+          null,
+          null,
+          null,
+          "NS"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "SW",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "EW",
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "SE",
+          "NW"
+        ],
+        [
+          "XX",
+          "XX",
+          "SE",
+          "SW",
+          "NS",
+          "XX",
+          "NS",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "NE",
+          "NW",
+          "SE",
+          "NW",
+          "XX"
+        ],
+        [
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              3,
+              3,
+              4,
+              5,
+              4,
+              4,
+              3,
+              3
+            ],
+            "column_clues": [
+              2,
+              3,
+              5,
+              4,
+              7,
+              3,
+              3,
+              2
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 4,
+                "value": "NE"
+              },
+              {
+                "row": 1,
+                "column": 8,
+                "value": "NS"
+              },
+              {
+                "row": 3,
+                "column": 4,
+                "value": "SW"
+              },
+              {
+                "row": 8,
+                "column": 4,
+                "value": "EW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                8,
+                101,
+                101,
+                101,
+                2
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                64,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                4,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":1},\"cell\":{\"row\":2,\"column\":1},\"candidates\":[\"XX\",\"SE\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 1
+            },
+            "cell": {
+              "row": 2,
+              "column": 1
+            },
+            "candidates": [
+              "XX",
+              "SE"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "23012026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "wrong_candidates",
+      "correct_cells": 3,
+      "total_cells": 54,
+      "actions": 1,
+      "seconds": 0.558,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "NS",
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "EW",
+          "NW"
+        ],
+        [
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "NS",
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "NS",
+          "XX",
+          "NS",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "NE",
+          "SW",
+          "NS",
+          "NE",
+          "EW",
+          "EW"
+        ],
+        [
+          "XX",
+          "NS",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              5,
+              2,
+              1,
+              3,
+              3,
+              3,
+              6,
+              2,
+              2
+            ],
+            "column_clues": [
+              4,
+              6,
+              9,
+              4,
+              2,
+              2
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 6,
+                "value": "NW"
+              },
+              {
+                "row": 6,
+                "column": 4,
+                "value": "NS"
+              },
+              {
+                "row": 7,
+                "column": 6,
+                "value": "EW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                16
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                2,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                4
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":5},\"cell\":{\"row\":1,\"column\":5},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 5
+            },
+            "cell": {
+              "row": 1,
+              "column": 5
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "wrong_candidates"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "23072026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 54,
+      "actions": 1,
+      "seconds": 0.645,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "SW",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "NS",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "NE",
+          "EW"
+        ],
+        [
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "XX"
+        ],
+        [
+          "SW",
+          "XX",
+          "NE",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "NS",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "SE",
+          "NW",
+          "XX"
+        ],
+        [
+          "XX",
+          "NE",
+          "EW",
+          "NW",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              3,
+              3,
+              2,
+              2,
+              4,
+              2,
+              3,
+              3,
+              3
+            ],
+            "column_clues": [
+              3,
+              3,
+              6,
+              6,
+              6,
+              1
+            ],
+            "givens": [
+              {
+                "row": 2,
+                "column": 6,
+                "value": "EW"
+              },
+              {
+                "row": 5,
+                "column": 1,
+                "value": "SW"
+              },
+              {
+                "row": 7,
+                "column": 5,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                4
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                64,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                2,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":2},\"cell\":{\"row\":2,\"column\":2},\"candidates\":[\"XX\",\"NS\",\"NW\",\"SW\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 2
+            },
+            "cell": {
+              "row": 2,
+              "column": 2
+            },
+            "candidates": [
+              "XX",
+              "NS",
+              "NW",
+              "SW"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "24022026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 64,
+      "actions": 1,
+      "seconds": 0.599,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          "NS",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "SE",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "SE",
+          "EW",
+          "EW",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "SE"
+        ],
+        [
+          "NE",
+          "EW",
+          "SW",
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "NS"
+        ],
+        [
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "NS",
+          "NE",
+          "EW",
+          "NW"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NE",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              1,
+              2,
+              6,
+              6,
+              6,
+              3,
+              3,
+              2
+            ],
+            "column_clues": [
+              2,
+              6,
+              5,
+              5,
+              5,
+              2,
+              1,
+              3
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 4,
+                "value": "NS"
+              },
+              {
+                "row": 3,
+                "column": 8,
+                "value": "SE"
+              },
+              {
+                "row": 7,
+                "column": 3,
+                "value": "SE"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                2,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                32
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                32,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":1},\"cell\":{\"row\":2,\"column\":1},\"candidates\":[\"XX\",\"SE\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 1
+            },
+            "cell": {
+              "row": 2,
+              "column": 1
+            },
+            "candidates": [
+              "XX",
+              "SE"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "24052026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 2,
+      "total_cells": 42,
+      "actions": 1,
+      "seconds": 0.569,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "EW"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "EW",
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "EW",
+          "SW",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX"
+        ],
+        [
+          "XX",
+          "NE",
+          "SW",
+          "XX",
+          "SE",
+          "NW",
+          "XX"
+        ],
+        [
+          "XX",
+          "SE",
+          "NW",
+          "XX",
+          "NE",
+          "EW",
+          "EW"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              5,
+              2,
+              4,
+              5,
+              1,
+              2
+            ],
+            "column_clues": [
+              1,
+              6,
+              3,
+              1,
+              3,
+              4,
+              1
+            ],
+            "givens": [
+              {
+                "row": 4,
+                "column": 7,
+                "value": "EW"
+              },
+              {
+                "row": 6,
+                "column": 1,
+                "value": "EW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                4
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                4,
+                29,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":2},\"cell\":{\"row\":1,\"column\":2},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 2
+            },
+            "cell": {
+              "row": 1,
+              "column": 2
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "26082026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 4,
+      "total_cells": 48,
+      "actions": 1,
+      "seconds": 0.652,
+      "prediction": [
+        [
+          null,
+          null,
+          "NS",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          "NW",
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          "SW",
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "NE",
+          "EW",
+          "EW",
+          "SW",
+          "XX",
+          "SE"
+        ],
+        [
+          "XX",
+          "SE",
+          "EW",
+          "NW",
+          "XX",
+          "NS"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "SE",
+          "NW"
+        ],
+        [
+          "XX",
+          "NE",
+          "EW",
+          "SW",
+          "NS",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "NW",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              1,
+              1,
+              3,
+              5,
+              4,
+              3,
+              4,
+              2
+            ],
+            "column_clues": [
+              2,
+              5,
+              6,
+              4,
+              3,
+              3
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 3,
+                "value": "NS"
+              },
+              {
+                "row": 3,
+                "column": 3,
+                "value": "NW"
+              },
+              {
+                "row": 4,
+                "column": 6,
+                "value": "SE"
+              },
+              {
+                "row": 7,
+                "column": 4,
+                "value": "SW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                2,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                16,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                32
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                64,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":2},\"cell\":{\"row\":2,\"column\":2},\"candidates\":[\"XX\",\"NS\",\"NE\",\"SE\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 2
+            },
+            "cell": {
+              "row": 2,
+              "column": 2
+            },
+            "candidates": [
+              "XX",
+              "NS",
+              "NE",
+              "SE"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "31072026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 3,
+      "total_cells": 42,
+      "actions": 1,
+      "seconds": 0.561,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NS"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          "SE",
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "NS",
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "XX",
+          "SE",
+          "SW",
+          "XX",
+          "XX",
+          "NS"
+        ],
+        [
+          "XX",
+          "NS",
+          "NE",
+          "SW",
+          "XX",
+          "NS"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "NS",
+          "SE",
+          "NW"
+        ],
+        [
+          "SE",
+          "NW",
+          "XX",
+          "NE",
+          "NW",
+          "XX"
+        ],
+        [
+          "NE",
+          "SW",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              1,
+              3,
+              4,
+              4,
+              4,
+              2,
+              1
+            ],
+            "column_clues": [
+              2,
+              6,
+              2,
+              3,
+              2,
+              4
+            ],
+            "givens": [
+              {
+                "row": 1,
+                "column": 6,
+                "value": "NS"
+              },
+              {
+                "row": 4,
+                "column": 5,
+                "value": "SE"
+              },
+              {
+                "row": 7,
+                "column": 2,
+                "value": "NS"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                2
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                32,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                2,
+                29,
+                29,
+                29,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":2,\"column\":1},\"cell\":{\"row\":2,\"column\":1},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 2,
+              "column": 1
+            },
+            "cell": {
+              "row": 2,
+              "column": 1
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    },
+    {
+      "puzzle_id": "31102026-small",
+      "solved": false,
+      "valid_complete_board": false,
+      "finished": false,
+      "failure": "unsupported_rule",
+      "correct_cells": 2,
+      "total_cells": 56,
+      "actions": 1,
+      "seconds": 0.564,
+      "prediction": [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          "NE"
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          "SW",
+          null
+        ]
+      ],
+      "reference": [
+        [
+          "XX",
+          "SE",
+          "EW",
+          "EW",
+          "SW",
+          "XX",
+          "XX"
+        ],
+        [
+          "SE",
+          "NW",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX"
+        ],
+        [
+          "NE",
+          "EW",
+          "EW",
+          "SW",
+          "NE",
+          "EW",
+          "SW"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "NE"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NS",
+          "XX",
+          "XX",
+          "XX"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "EW",
+          "EW",
+          "SW"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "SE",
+          "EW",
+          "NW"
+        ],
+        [
+          "XX",
+          "XX",
+          "XX",
+          "XX",
+          "NE",
+          "SW",
+          "XX"
+        ]
+      ],
+      "history": [
+        {
+          "step": 0,
+          "state": {
+            "row_clues": [
+              4,
+              3,
+              7,
+              2,
+              1,
+              4,
+              3,
+              2
+            ],
+            "column_clues": [
+              2,
+              3,
+              2,
+              5,
+              6,
+              4,
+              4
+            ],
+            "givens": [
+              {
+                "row": 4,
+                "column": 7,
+                "value": "NE"
+              },
+              {
+                "row": 8,
+                "column": 6,
+                "value": "SW"
+              }
+            ],
+            "domains": [
+              [
+                33,
+                101,
+                101,
+                101,
+                101,
+                101,
+                65
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                8
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                43,
+                127,
+                127,
+                127,
+                127,
+                127,
+                83
+              ],
+              [
+                9,
+                29,
+                29,
+                29,
+                29,
+                64,
+                17
+              ]
+            ],
+            "branch_stack": []
+          },
+          "raw": "{\"type\":\"deduce\",\"rule\":\"port_reciprocity\",\"anchor\":{\"row\":1,\"column\":6},\"cell\":{\"row\":1,\"column\":6},\"candidates\":[\"XX\"]}",
+          "action": {
+            "type": "deduce",
+            "rule": "port_reciprocity",
+            "anchor": {
+              "row": 1,
+              "column": 6
+            },
+            "cell": {
+              "row": 1,
+              "column": 6
+            },
+            "candidates": [
+              "XX"
+            ]
+          },
+          "valid": false,
+          "reason": "unsupported_rule"
+        }
+      ]
+    }
+  ]
+}
