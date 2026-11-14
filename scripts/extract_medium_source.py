@@ -17,7 +17,7 @@ def main():
     parser.add_argument("--source-root", type=Path,
                         default=ROOT.parent / "Train_Track_Puzzle")
     parser.add_argument("--output", type=Path,
-                        default=ROOT / "output/medium/source.jsonl")
+                        default=ROOT / "source/train-puzzles-medium.jsonl")
     args = parser.parse_args()
     old_root = args.source_root.resolve()
     with (old_root / "dataset-audit/puzzle-splits.csv").open(

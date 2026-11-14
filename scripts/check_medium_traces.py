@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path,
-                        default=ROOT / "output/medium/source.jsonl")
+                        default=ROOT / "source/train-puzzles-medium.jsonl")
     parser.add_argument("--input", type=Path,
                         default=ROOT / "output/medium/test_medium.jsonl")
     parser.add_argument("--allow-subset", action="store_true")

@@ -28,7 +28,7 @@ def medium_records(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path,
-                        default=ROOT / "output/medium/source.jsonl")
+                        default=ROOT / "source/train-puzzles-medium.jsonl")
     parser.add_argument("--output", type=Path,
                         default=ROOT / "output/medium/test_medium.jsonl")
     parser.add_argument("--limit", type=int, default=0,

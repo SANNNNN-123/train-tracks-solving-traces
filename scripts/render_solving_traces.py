@@ -1,7 +1,7 @@
 """Build a standalone HTML step-through viewer for offline solving traces.
 
 Run from the repository root:
-    python modal/tools/render_solving_traces.py
+    python scripts/render_solving_traces.py
 """
 
 from __future__ import annotations
@@ -14,6 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT = ROOT / "data/train.jsonl"
+DEFAULT_MEDIUM_INPUT = ROOT / "output/medium/test_medium.jsonl"
 DEFAULT_OUTPUT = ROOT / "solving-traces.html"
 
 
@@ -83,9 +84,10 @@ button:hover {background:#edf3fa} button:disabled {opacity:.45}
 </style>
 </head>
 <body>
-<header><h1>Train Tracks solving traces</h1><p>Step through the offline teacher's deductions, trial branches, contradictions, and undos across __PUZZLE_COUNT__ training puzzles.</p></header>
+<header><h1>Train Tracks solving traces</h1><p>Step through the offline teacher's deductions, trial branches, contradictions, and undos across __EASY_COUNT__ easy training and __MEDIUM_COUNT__ medium test puzzles.</p></header>
 <main>
 <div class="controls">
+  <label for="mode">Mode<select id="mode"><option value="easy">Easy</option><option value="medium">Medium</option></select></label>
   <label for="puzzle">Puzzle<select id="puzzle"></select></label>
   <button id="next-branch" type="button">Next branch</button>
   <button id="next-conflict" type="button">Next contradiction</button>
@@ -119,12 +121,13 @@ button:hover {background:#edf3fa} button:disabled {opacity:.45}
 <p class="hint">The board shows the state after the selected action. Use the slider or the left and right arrow keys. Hover over an unknown cell to see its remaining tiles.</p>
 </main>
 <script>
-const PUZZLES=__DATA__;
+const PUZZLES={easy:__EASY_DATA__,medium:__MEDIUM_DATA__};
 const TILES=['XX','NS','EW','NE','NW','SE','SW'];
 const BITS=Object.fromEntries(TILES.map((name,i)=>[name,1<<i]));
 const DIR={N:[0,-1],E:[1,0],S:[0,1],W:[-1,0]};
-const els=Object.fromEntries(['puzzle','step','step-label','previous','next','next-branch','next-conflict','board','puzzle-title','kind','action','meta','candidates'].map(id=>[id,document.getElementById(id)]));
-let selected=0,position=0,frames=[];
+const els=Object.fromEntries(['mode','puzzle','step','step-label','previous','next','next-branch','next-conflict','board','puzzle-title','kind','action','meta','candidates'].map(id=>[id,document.getElementById(id)]));
+let mode='easy',selected=0,position=0,frames=[];
+function puzzles(){return PUZZLES[mode]}
 function copy(board){return board.map(line=>line.slice())}
 function names(mask){return TILES.filter(tile=>mask&BITS[tile])}
 function escapeText(value){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
@@ -233,7 +236,7 @@ function describe(puzzle,frame,action,step){
   }else els.candidates.textContent='';
 }
 function render(){
-  const puzzle=PUZZLES[selected],frame=frames[position],action=position?puzzle.events[position-1]:null;
+  const puzzle=puzzles()[selected],frame=frames[position],action=position?puzzle.events[position-1]:null;
   els['step-label'].textContent=`Step ${position} / ${puzzle.events.length}`;
   els.step.value=position;
   els.previous.disabled=position===0;
@@ -243,34 +246,40 @@ function render(){
   describe(puzzle,frame,action,position);
 }
 function choosePuzzle(index){
-  selected=index;position=0;frames=buildFrames(PUZZLES[selected]);
-  els.step.max=PUZZLES[selected].events.length;
+  selected=index;position=0;frames=buildFrames(puzzles()[selected]);
+  els.step.max=puzzles()[selected].events.length;
   render();
 }
 function jumpTo(type){
-  const events=PUZZLES[selected].events;
+  const events=puzzles()[selected].events;
   let index=events.findIndex((event,i)=>i>=position&&event.type===type);
   if(index<0)index=events.findIndex(event=>event.type===type);
   if(index>=0){position=index+1;render()}
 }
-PUZZLES.forEach((puzzle,index)=>{
-  const option=document.createElement('option');option.value=index;
-  const contradictions=puzzle.events.filter(event=>event.type==='contradiction').length;
-  option.textContent=`${puzzle.id} · ${puzzle.events.length} steps${contradictions?' · contradiction':''}`;
-  els.puzzle.append(option);
-});
+function chooseMode(value){
+  mode=value;
+  els.puzzle.replaceChildren();
+  puzzles().forEach((puzzle,index)=>{
+    const option=document.createElement('option');option.value=index;
+    const contradictions=puzzle.events.filter(event=>event.type==='contradiction').length;
+    option.textContent=`${puzzle.id} · ${puzzle.events.length} steps${contradictions?' · contradiction':''}`;
+    els.puzzle.append(option);
+  });
+  choosePuzzle(0);
+}
+els.mode.addEventListener('change',()=>chooseMode(els.mode.value));
 els.puzzle.addEventListener('change',()=>choosePuzzle(Number(els.puzzle.value)));
 els.step.addEventListener('input',()=>{position=Number(els.step.value);render()});
 els.previous.addEventListener('click',()=>{if(position>0){position--;render()}});
-els.next.addEventListener('click',()=>{if(position<PUZZLES[selected].events.length){position++;render()}});
+els.next.addEventListener('click',()=>{if(position<puzzles()[selected].events.length){position++;render()}});
 els['next-branch'].addEventListener('click',()=>jumpTo('branch'));
 els['next-conflict'].addEventListener('click',()=>jumpTo('contradiction'));
 document.addEventListener('keydown',event=>{
   if(['SELECT','INPUT','BUTTON'].includes(document.activeElement.tagName))return;
-  if(event.key==='ArrowRight'&&position<PUZZLES[selected].events.length){position++;render()}
+  if(event.key==='ArrowRight'&&position<puzzles()[selected].events.length){position++;render()}
   if(event.key==='ArrowLeft'&&position>0){position--;render()}
 });
-choosePuzzle(0);
+chooseMode(els.mode.value);
 </script>
 </body>
 </html>
@@ -280,16 +289,23 @@ choosePuzzle(0);
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("trace", nargs="?", type=Path, default=DEFAULT_INPUT)
+    parser.add_argument("--medium-trace", type=Path, default=DEFAULT_MEDIUM_INPUT)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
-    puzzles = compact_traces(args.trace)
+    easy_puzzles = compact_traces(args.trace)
+    medium_puzzles = compact_traces(args.medium_trace)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    data = json.dumps(puzzles, separators=(",", ":")).replace("<", "\\u003c")
-    page = PAGE.replace("__PUZZLE_COUNT__", html.escape(str(len(puzzles))))
-    page = page.replace("__DATA__", data)
+    easy_data = json.dumps(easy_puzzles, separators=(",", ":")).replace("<", "\\u003c")
+    medium_data = json.dumps(medium_puzzles, separators=(",", ":")).replace("<", "\\u003c")
+    page = PAGE.replace("__EASY_COUNT__", html.escape(str(len(easy_puzzles))))
+    page = page.replace("__MEDIUM_COUNT__", html.escape(str(len(medium_puzzles))))
+    page = page.replace("__EASY_DATA__", easy_data)
+    page = page.replace("__MEDIUM_DATA__", medium_data)
     args.output.write_text(page, encoding="utf-8")
-    print(f"{args.output} ({len(puzzles)} puzzles, "
-          f"{sum(len(p['events']) for p in puzzles)} actions)")
+    print(f"{args.output} (easy: {len(easy_puzzles)} puzzles, "
+          f"{sum(len(p['events']) for p in easy_puzzles)} actions; "
+          f"medium: {len(medium_puzzles)} puzzles, "
+          f"{sum(len(p['events']) for p in medium_puzzles)} actions)")
 
 
 if __name__ == "__main__":
