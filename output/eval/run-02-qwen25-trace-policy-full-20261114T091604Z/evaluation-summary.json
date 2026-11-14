@@ -1,0 +1,15 @@
+﻿{
+  "run_id": "qwen25-trace-policy-full-20261114T091604Z",
+  "split": "internal_puzzle_holdout_from_212_training_puzzles",
+  "attempted": 32,
+  "solved": 0,
+  "valid_complete_boards": 0,
+  "correct_cells": 174,
+  "total_cells": 1762,
+  "failures": {
+    "unsupported_rule": 31,
+    "wrong_candidates": 1
+  },
+  "remote_rollout": "/mnt/train-tracks-solving-traces/rollouts/development-qwen25-trace-policy-full-20261114T091604Z-20261114T093925Z.json",
+  "source": "User-provided terminal output; full Modal log and rollout not downloaded in this session"
+}
