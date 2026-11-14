@@ -1,0 +1,60 @@
+2026-11-14 22:22:33+08:00 
+2026-11-14 22:22:33+08:00 [1A2026-11-14 22:22:33+08:00 Loading weights:   0%|          | 0/338 [00:00<?, ?it/s]
+2026-11-14 22:22:33+08:00 [1A2026-11-14 22:22:33+08:00 Loading weights:  16%|█▌        | 53/338 [00:00<00:00, 498.00it/s]
+2026-11-14 22:22:33+08:00 [1A2026-11-14 22:22:33+08:00 Loading weights:  30%|███       | 103/338 [00:00<00:00, 446.49it/s]
+2026-11-14 22:22:33+08:00 [1ALoading weights:  44%|████▍     | 148/338 [00:00<00:00, 372.56it/s]
+2026-11-14 22:22:34+08:00 
+2026-11-14 22:22:34+08:00 [1A2026-11-14 22:22:34+08:00 Loading weights: 100%|██████████| 338/338 [00:00<00:00, 723.01it/s]
+2026-11-14 22:23:25+08:00 medium evaluation: 1/32 puzzles
+2026-11-14 22:24:14+08:00 medium evaluation: 2/32 puzzles
+2026-11-14 22:25:06+08:00 medium evaluation: 3/32 puzzles
+2026-11-14 22:25:57+08:00 medium evaluation: 4/32 puzzles
+2026-11-14 22:26:37+08:00 medium evaluation: 5/32 puzzles
+2026-11-14 22:27:31+08:00 medium evaluation: 6/32 puzzles
+2026-11-14 22:28:20+08:00 medium evaluation: 7/32 puzzles
+2026-11-14 22:29:09+08:00 medium evaluation: 8/32 puzzles
+2026-11-14 22:29:54+08:00 medium evaluation: 9/32 puzzles
+2026-11-14 22:30:46+08:00 medium evaluation: 10/32 puzzles
+2026-11-14 22:31:29+08:00 medium evaluation: 11/32 puzzles
+2026-11-14 22:32:20+08:00 medium evaluation: 12/32 puzzles
+2026-11-14 22:33:12+08:00 medium evaluation: 13/32 puzzles
+2026-11-14 22:33:47+08:00 medium evaluation: 14/32 puzzles
+2026-11-14 22:34:37+08:00 medium evaluation: 15/32 puzzles
+2026-11-14 22:35:27+08:00 medium evaluation: 16/32 puzzles
+2026-11-14 22:36:11+08:00 medium evaluation: 17/32 puzzles
+2026-11-14 22:36:59+08:00 medium evaluation: 18/32 puzzles
+2026-11-14 22:37:29+08:00 medium evaluation: 19/32 puzzles
+2026-11-14 22:38:19+08:00 medium evaluation: 20/32 puzzles
+2026-11-14 22:39:10+08:00 medium evaluation: 21/32 puzzles
+2026-11-14 22:39:50+08:00 medium evaluation: 22/32 puzzles
+2026-11-14 22:40:42+08:00 medium evaluation: 23/32 puzzles
+2026-11-14 22:41:21+08:00 medium evaluation: 24/32 puzzles
+2026-11-14 22:42:14+08:00 medium evaluation: 25/32 puzzles
+2026-11-14 22:42:45+08:00 medium evaluation: 26/32 puzzles
+2026-11-14 22:43:35+08:00 medium evaluation: 27/32 puzzles
+2026-11-14 22:44:10+08:00 medium evaluation: 28/32 puzzles
+2026-11-14 22:44:49+08:00 medium evaluation: 29/32 puzzles
+2026-11-14 22:45:27+08:00 medium evaluation: 30/32 puzzles
+2026-11-14 22:45:54+08:00 medium evaluation: 31/32 puzzles
+2026-11-14 22:46:45+08:00 medium evaluation: 32/32 puzzles
+2026-11-14 22:46:48+08:00 {
+2026-11-14 22:46:48+08:00   "run_id": "qwen25-trace-policy-full-20261114T105418Z",
+2026-11-14 22:46:48+08:00   "dataset": "medium",
+2026-11-14 22:46:48+08:00   "split": "test_medium",
+2026-11-14 22:46:48+08:00   "sample_strategy": "deterministic_board_size_stratified",
+2026-11-14 22:46:48+08:00   "board_shapes": {
+2026-11-14 22:46:48+08:00     "10x10": 8,
+2026-11-14 22:46:48+08:00     "10x9": 8,
+2026-11-14 22:46:48+08:00     "9x10": 8,
+2026-11-14 22:46:48+08:00     "9x9": 8
+2026-11-14 22:46:48+08:00   },
+2026-11-14 22:46:48+08:00   "attempted": 32,
+2026-11-14 22:46:48+08:00   "solved": 14,
+2026-11-14 22:46:48+08:00   "valid_complete_boards": 14,
+2026-11-14 22:46:48+08:00   "correct_cells": 2330,
+2026-11-14 22:46:48+08:00   "total_cells": 2888,
+2026-11-14 22:46:48+08:00   "failures": {
+2026-11-14 22:46:48+08:00     "action_limit": 18
+2026-11-14 22:46:48+08:00   },
+2026-11-14 22:46:48+08:00   "output": "/mnt/train-tracks-solving-traces/rollouts/test-medium-qwen25-trace-policy-full-20261114T105418Z-20261114T144645Z.json"
+2026-11-14 22:46:48+08:00 }
