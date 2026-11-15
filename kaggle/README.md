@@ -32,8 +32,9 @@ SFT). The package evaluates the *same* 32-puzzle shape-stratified sample
 | --- | --- |
 | `branch_search.py` | Sound bounded DFS over the two branch values. Rejects a value only when propagation proves it impossible. |
 | `data_prep.py` | Builds train/dev views, reverses branch menus, adds corrected wrong-branch rows, upsamples branches. |
-| `train_kaggle.py` | LoRA SFT with fp16/bf16 auto-selection and DDP. Kaggle port of `modal/train.py`. |
+| `train_kaggle.py` | LoRA SFT with fp16/bf16 auto-selection and DDP. Kaggle port of `modal/train.py`. `--examples/--dev-examples` train on a precomputed JSONL, `--init-adapter` continues an existing adapter. |
 | `evaluate_kaggle.py` | Rollout evaluator with `--branch-search-depth {0,2}`. Kaggle port of `modal/evaluate.py`. |
+| `medium_traces.py` | Turns audited medium solutions into branch-state SFT rows: oracle rollout per puzzle, the three-way split (240 train / 32 eval / 32 fresh) and a `--limit` smoke mode. |
 | `action_policy.py` | Legal-action menu, prompt, parser, validator (unchanged from the baseline). |
 | `trace_logic.py` | Rule engine and board helpers (unchanged). |
 | `data/train.jsonl` | 24,565 small-puzzle trace rows — **the only training data**. |
@@ -42,11 +43,15 @@ SFT). The package evaluates the *same* 32-puzzle shape-stratified sample
 | `configs/accelerate_t4x2.yaml` | `MULTI_GPU`, 2 processes, `fp16`. |
 | `notebooks/train_tracks_traces_kaggle.ipynb` | **Standalone** end-to-end notebook: embeds the library and writes it to `/kaggle/working/tt`, so it only needs the three data files. Install → env check → stats → smoke → train → baseline eval → improved eval → compare, with per-step logs. |
 | `notebooks/probe_action_budget.ipynb` | **Standalone** probe: re-runs the 10 medium puzzles run-04 left unsolved with `--max-actions 512` and `--max-new-tokens 16`, sharded over both GPUs. No training. |
+| `notebooks/train_tracks_medium_branch_sft.ipynb` | **Standalone** run-05: builds the branch-state dataset from 240 medium puzzles, continues the run-04 adapter for one epoch at 1e-4, then re-evaluates all 32 ids at 512 actions. |
 | `selfcheck.py` | CPU-only harness check: oracle rollout plus a step-by-step replay of run-03 (14/32, 123 undos, 0 mismatches), so board updates, undo and filter safety are verified before spending GPU time. |
 | `requirements.txt` | Pins, without torch. Used by the CLI route; the notebook installs the same versions inline. |
 
-Medium puzzles are never read by `data_prep.py` or `train_kaggle.py`. The only
-consumer of `train-puzzles-medium.jsonl` is `evaluate_kaggle.py --dataset medium`.
+Medium puzzles are never read by `data_prep.py` or `train_kaggle.py`. The
+evaluation split (`--limit 32`) is read only by `evaluate_kaggle.py
+--dataset medium`; `medium_traces.py` reads the other 272 medium puzzles for the
+run-05 fine-tune and re-asserts at generation time that the 32 evaluation ids are
+absent from what it writes.
 
 ---
 
@@ -306,6 +311,68 @@ CDN) beside the raw `probe-merged.json`.
 ~8 tokens); the probe's `invalid` column verifies it — a non-zero count means a
 truncated reply.
 
+### 4c. Medium branch-state SFT (run-05)
+
+The four remaining failures are policy-bound, so the next lever is branch quality.
+Two cheaper ideas were measured and **rejected**:
+
+| Idea | Measurement on the recorded 10-probe run | Verdict |
+| --- | --- | --- |
+| Don't re-take a branch value that already led to a contradiction | sound (subset-context) scoping fires **0/173** decisions, because every retry happens under a different branch stack; the aggressive cell-scope blocks 25 decisions of which **15 were correct guesses** (`19042026` 6/6, `24032026` 3/3, `22012026` 2/2, `13072026` 1/1) | would cost solved puzzles |
+| Deeper branch filter (depth 3/4) | replaying the exact committed actions: depth 3 changes 1/173 decisions, depth 4 changes 9 for a net **+3** | filter is out of information |
+
+`medium_traces.py` builds the training data instead: for each puzzle it replays the
+audited solution with an oracle (undo when pending, take the true value at every
+branch), keeps every branch state plus a deduction sample, and emits each branch in
+**both menu orders** so `a000`/`a001` carries no information. The split is
+deterministic and leak-checked:
+
+| pool | puzzles | contents |
+| --- | --- | --- |
+| eval | 32 | exactly the ids run-04 measured; asserted unchanged |
+| fresh | 32 | held out; development loss only |
+| train | 240 | 7,488 rows (~6.9M tokens): 3,408 branch, 3,840 deduction, 240 finish |
+
+Measured generation cost: **2.7 min on a laptop CPU** for the full 240 puzzles, so
+it runs inside the notebook without a GPU.
+
+```bash
+python medium_traces.py --data data/train-puzzles-medium.jsonl \
+    --output-dir /kaggle/working/examples --max-deductions 16   # 240/32/32 split
+python train_kaggle.py --examples /kaggle/working/examples/train-examples.jsonl \
+    --dev-examples /kaggle/working/examples/dev-examples.jsonl \
+    --init-adapter /kaggle/input/run-04-branch-search-depth/adapter \
+    --output /kaggle/working/run-medium --epochs 1 --lr 1e-4 \
+    --max-length 4096 --batch-size 1 --grad-accum 16
+```
+
+`--max-length 4096`, not 2048: the mean medium prompt is ~900 tokens but the
+longest is ~3.3k, and truncating cuts the menu **off the end of the prompt** while
+the completion is a menu index, so the label would point at a deleted menu. Batch 1
+x accum 16 keeps the same effective 32 examples per step with half the peak memory.
+
+`notebooks/train_tracks_medium_branch_sft.ipynb` wraps all of it: dataset build with
+the split assertion and an explicit train/held-out overlap check, single-GPU and DDP
+smoke runs, the epoch, then the 10-id probe and the remaining 22 ids at depth 2 /
+512 actions. Attach the run-04 adapter dataset and the medium data dataset, then Run
+All; expect **~3.5 h** (2.7 min data, ~6 min smoke, ~1–2 h training, 40 min probe,
+~80 min for the other 22).
+
+The comparison cell prints gains **and losses**, because a new solved puzzle that
+costs an old one is not progress. Success bar: probe ≥ 6/10 (otherwise stop before
+the 80 min evaluation), full set **30+/32** with zero losses and zero invalid
+actions.
+
+**Scope: medium only.** Run-05 trains and evaluates on medium, continuing weights
+that already contain the small-puzzle training (24,565 rows). The small dev holdout
+was **31/32** under run-03 and is *not* re-measured here, so a forgetting cost on
+easy puzzles would go unrecorded. That is a deliberate trade: the eval target is
+medium, the easy distribution has almost nothing left to teach, and a mixed set
+would drop medium to ~23% of the batch. If one policy for both sizes is ever
+needed, the guard is cheap — the 32 small dev puzzles take ~12 min at 256 actions
+(6 min on two shards), and a rehearsal slice of ~60 small puzzles' branch examples
+(~1.2k rows) is the fix if that guard fails.
+
 ### 5. Compare
 
 ```python
@@ -327,6 +394,11 @@ for name in ("eval-baseline", "eval-improved"):
 | Medium solved | 14/32 | 22/32 (measured) | 28/32 (measured) |
 | Branch accuracy on clean boards | 68.2% | 98.5% solved / 54% on failures | unchanged |
 | True branch value rejected | n/a | never, while the board still contains the solution | same |
+
+Run-05 (§4c) continues from the 28/32 adapter and fine-tunes on medium branch
+states. Its result is not in this table until the notebook has run; the target is
+**30+/32 with no puzzle lost**, and the notebook prints both the gains and the
+losses so a trade cannot hide inside the total.
 
 The search is an **oracle-free safety net**, not a solver: it only removes a
 branch value when propagation plus two guesses hits a contradiction. When both
@@ -387,8 +459,9 @@ If the improved run is **not** better than baseline, check in order:
 * **No config file fallback.** If Kaggle's accelerate rejects the YAML, use
   `accelerate launch --multi_gpu --num_processes 2 --mixed_precision fp16 train_kaggle.py ...`.
 * **Session limits.** A Kaggle GPU session lasts up to 12 h (≈30 GPU-h/week).
-  The full flow needs roughly **2–3 h** (training 1–1.5 h, two evaluations
-  ~25 min each).
+  The run-04 flow needs roughly **2–3 h** (training 1–1.5 h, two evaluations
+  ~25 min each); the run-05 notebook (§4c) needs **~3.5 h** including its two
+  evaluation rounds.
 * **Save output.** `/kaggle/working` is the only persisted directory; download
   `run-branch/adapter` plus the two eval JSONs before the session ends.
 
@@ -423,16 +496,21 @@ a wrong label.
 
 **Determinism.** Seed 42 for data shuffling, training and data loader. The dev
 holdout is 32 small puzzles chosen by puzzle-id hash
-(`development_ids`), disjoint from training. Medium is untouched.
+(`development_ids`), disjoint from training. Run-04 never reads medium; run-05
+(§4c) trains only on the 240 medium puzzles outside the 32 evaluation ids and the
+32 fresh ids, and the generator refuses to write anything if that split moved.
 
 ---
 
 ## Next steps (not included)
 
-* **DAgger on branch states.** Roll out the current adapter on *training*
-  puzzles only, keep the branch states it actually reaches, label them with the
-  audited solution, and add them to the next epoch. This closes the
-  train/eval distribution gap that the static teacher traces leave open.
+* **DAgger on branch states.** Run-05 trains on *teacher* branch states: the
+  board as the audited solution reaches it. DAgger would instead roll out the
+  current adapter on **training** puzzles only, keep the branch states it actually
+  reaches, label them with the audited solution, and add those to the next epoch.
+  That closes the train/eval distribution gap the static traces leave open, and it
+  is the natural follow-up if run-05's dev loss falls but the medium score does not
+  move.
 * **Calibrate the fallback.** When both values survive the filter, the model
   decides. A small value-prior head or a deeper budget on ambiguous boards is
   where the remaining headroom is.

@@ -38,6 +38,12 @@ def parse_args():
     parser.add_argument("--data", type=Path, default=HERE / "data/train.jsonl")
     parser.add_argument("--source", type=Path,
                         default=HERE / "data/train-puzzles-small.jsonl")
+    parser.add_argument("--examples", type=Path, default=None,
+                        help="Precomputed user/completion JSONL; skips --data/--source")
+    parser.add_argument("--dev-examples", type=Path, default=None,
+                        help="Precomputed dev JSONL paired with --examples")
+    parser.add_argument("--init-adapter", type=Path, default=None,
+                        help="Continue training this LoRA adapter instead of adding a new one")
     parser.add_argument("--output", type=Path, default=Path("/kaggle/working/run-branch"))
     parser.add_argument("--model", default="Qwen/Qwen2.5-1.5B-Instruct")
     parser.add_argument("--revision", default="main")
@@ -60,8 +66,14 @@ def load_model_and_tokenizer(args):
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
+    # With --init-adapter the adapter directory also holds the tokenizer that
+    # rendered its training prompts, so the chat template matches exactly.
+    tokenizer_source = args.model
+    if args.init_adapter and (args.init_adapter / "tokenizer_config.json").exists():
+        tokenizer_source = args.init_adapter
     tokenizer = AutoTokenizer.from_pretrained(
-        args.model, revision=args.revision, local_files_only=args.local_files_only)
+        tokenizer_source, revision=None if tokenizer_source != args.model else args.revision,
+        local_files_only=args.local_files_only)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
@@ -77,6 +89,13 @@ def load_model_and_tokenizer(args):
         model = AutoModelForCausalLM.from_pretrained(args.model, dtype=dtype, **kwargs)
     except TypeError:  # older transformers
         model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype=dtype, **kwargs)
+    if args.init_adapter:
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(model, str(args.init_adapter), is_trainable=True)
+        # Gradient checkpointing recomputes forward passes; some transformers/PEFT
+        # combinations need the embedding output to require grad for LoRA grads.
+        if hasattr(model, "enable_input_require_grads"):
+            model.enable_input_require_grads()
     model.config.use_cache = False
     return model, tokenizer, dtype
 
@@ -170,17 +189,29 @@ def main():
     set_seed(args.seed)
     args.output.mkdir(parents=True, exist_ok=True)
 
-    rows = load_jsonl(args.data)
-    solutions = load_solutions(args.source)
-    train_rows, dev_rows, dev_puzzles = split_rows(rows)
-    if args.no_branch_augment:
-        train_examples, stats = build_examples(
-            train_rows, solutions, branch_repeat=1,
-            reverse_branch_orders=False, corrected_wrong_branches=False)
+    if args.examples:
+        train_examples = load_jsonl(args.examples)
+        dev_examples = load_jsonl(args.dev_examples) if args.dev_examples else []
+        train_puzzles = len({example.get("puzzle_id") for example in train_examples})
+        dev_puzzles = len({example.get("puzzle_id") for example in dev_examples})
+        train_rows = []
+        stats = {"source": "precomputed", "total": len(train_examples),
+                 "puzzles": train_puzzles}
+        print(f"precomputed examples: {len(train_examples):,} train, "
+              f"{len(dev_examples):,} dev")
     else:
-        train_examples, stats = build_examples(
-            train_rows, solutions, branch_repeat=args.branch_repeat)
-    dev_examples = build_dev_examples(dev_rows)
+        rows = load_jsonl(args.data)
+        solutions = load_solutions(args.source)
+        train_rows, dev_rows, dev_puzzles = split_rows(rows)
+        if args.no_branch_augment:
+            train_examples, stats = build_examples(
+                train_rows, solutions, branch_repeat=1,
+                reverse_branch_orders=False, corrected_wrong_branches=False)
+        else:
+            train_examples, stats = build_examples(
+                train_rows, solutions, branch_repeat=args.branch_repeat)
+        dev_examples = build_dev_examples(dev_rows)
+        train_puzzles = len({row["puzzle_id"] for row in train_rows})
     if args.smoke:
         train_examples = train_examples[:16]
         dev_examples = dev_examples[:8]
@@ -194,15 +225,16 @@ def main():
 
     fp16 = dtype == torch.float16
     bf16 = dtype == torch.bfloat16
+    peft_config = None if args.init_adapter else LoraConfig(
+        r=16, lora_alpha=32, lora_dropout=0.05, bias="none", task_type="CAUSAL_LM",
+        target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
+                        "gate_proj", "up_proj", "down_proj"])
     trainer = SFTTrainer(
         model=model,
         args=sft_config(args, args.output / "trainer", fp16=fp16, bf16=bf16),
         train_dataset=train_data,
         eval_dataset=dev_data,
-        peft_config=LoraConfig(
-            r=16, lora_alpha=32, lora_dropout=0.05, bias="none", task_type="CAUSAL_LM",
-            target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
-                            "gate_proj", "up_proj", "down_proj"]),
+        peft_config=peft_config,
         processing_class=tokenizer,
     )
 
@@ -222,11 +254,14 @@ def main():
             "task": "trace_action_policy",
             "branch_augment": not args.no_branch_augment,
             "branch_repeat": 1 if args.no_branch_augment else args.branch_repeat,
-            "puzzles_train": len({r["puzzle_id"] for r in train_rows}),
+            "puzzles_train": train_puzzles,
             "puzzles_dev": dev_puzzles,
             "train_examples": len(train_data),
             "dev_examples": len(dev_data),
             "data_stats": stats,
+            "examples_file": str(args.examples) if args.examples else None,
+            "init_adapter": str(args.init_adapter) if args.init_adapter else None,
+            "continued_training": bool(args.init_adapter),
             "optimizer_steps": trainer.state.global_step,
             "development_loss_before": before,
             "development_loss_after": after,
