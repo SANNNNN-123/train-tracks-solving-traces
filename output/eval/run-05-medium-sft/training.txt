@@ -1,0 +1,28 @@
+{
+  "run_id": "run-medium",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "task": "trace_action_policy",
+  "branch_augment": true,
+  "branch_repeat": 2,
+  "puzzles_train": 240,
+  "puzzles_dev": 32,
+  "train_examples": 7488,
+  "dev_examples": 572,
+  "data_stats": {
+    "source": "precomputed",
+    "total": 7488,
+    "puzzles": 240
+  },
+  "examples_file": "/kaggle/working/examples/train-examples.jsonl",
+  "init_adapter": "/kaggle/input/datasets/zuhairsan/run-04-branch-search-depth",
+  "continued_training": true,
+  "optimizer_steps": 234,
+  "development_loss_before": 0.11573278158903122,
+  "development_loss_after": 0.0491068996489048,
+  "train_runtime_seconds": 7646.9,
+  "peak_gpu_memory_gib": 6.66,
+  "dtype": "torch.float16",
+  "gpus": 2,
+  "adapter": "/kaggle/working/run-medium/adapter",
+  "output_dir": "/kaggle/working/run-medium"
+}
