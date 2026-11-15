@@ -5,3 +5,5 @@ __pycache__/
 .agents/
 output/models/*
 output/models/run-03/adapter/
+
+*/*.zip
