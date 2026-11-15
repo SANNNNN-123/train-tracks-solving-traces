@@ -23,6 +23,39 @@ STRETCHED_BOARD = "#board svg {display:block;width:100%;max-width:700px;margin:a
 NATURAL_BOARD = "#board svg {display:block;max-width:100%;height:auto;margin:auto}"
 SVG_OPEN = '<svg viewBox="0 0 ${W} ${H}" role="img"'
 SIZED_SVG_OPEN = '<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img"'
+OLD_LEGEND_COLORS = ".given {background:#245baa}.placed {background:#252b35}.branch {background:#edab34}.changed {background:#8bcfa8}.conflict {background:#e57b78}"
+NEW_LEGEND_COLORS = (
+    ".given {background:#ccc;border:1px solid #a8b5c4}"
+    ".placed {background:linear-gradient(180deg,white 38%,#252b35 38%,#252b35 60%,white 60%);border:1px solid #a8b5c4}"
+    ".branch {background:#fff0cd;border:2px solid #b27600}"
+    ".changed {background:#ddf3e5;border:2px solid #23834b}"
+    ".conflict {background:#fbe2e0;border:2px solid #c63530}"
+    ".undo {background:#ece4fa;border:2px solid #7654b0}"
+)
+OLD_LEGEND_TEXT = """      <span><i class="swatch given"></i> Given rail</span>
+      <span><i class="swatch placed"></i> Fixed rail</span>
+      <span><i class="swatch changed"></i> Deduction</span>
+      <span><i class="swatch branch"></i> Trial branch</span>
+      <span><i class="swatch conflict"></i> Contradiction</span>
+      <span>× Empty · ?N N candidates</span>"""
+NEW_LEGEND_TEXT = """      <span><i class="swatch given"></i> Given track</span>
+      <span><i class="swatch placed"></i> Fixed track</span>
+      <span><i class="swatch changed"></i> Deduction</span>
+      <span><i class="swatch branch"></i> Trial branch</span>
+      <span><i class="swatch conflict"></i> Contradiction</span>
+      <span><i class="swatch undo"></i> Undo</span>
+      <span>× Empty cell</span>
+      <span>?N = N remaining choices</span>"""
+OLD_COLUMN_CLUES = """  puzzle.columns.forEach((clue,c)=>parts.push(`<text x="${left+(c+.5)*size}" y="29" text-anchor="middle" font-size="19" font-weight="700" fill="#243242">${clue}</text>`));"""
+NEW_COLUMN_CLUES = """  puzzle.columns.forEach((clue,c)=>{
+    const confirmed=board.reduce((count,line)=>count+(!(line[c]&BITS.XX)?1:0),0);
+    parts.push(`<text x="${left+(c+.5)*size}" y="29" text-anchor="middle" font-size="19" font-weight="700" fill="${confirmed===clue?'#008800':'#243242'}">${clue}</text>`);
+  });"""
+OLD_ROW_CLUES = """  puzzle.rows.forEach((clue,r)=>parts.push(`<text x="${left+w*size+24}" y="${top+(r+.5)*size+6}" text-anchor="middle" font-size="19" font-weight="700" fill="#243242">${clue}</text>`));"""
+NEW_ROW_CLUES = """  puzzle.rows.forEach((clue,r)=>{
+    const confirmed=board[r].filter(mask=>!(mask&BITS.XX)).length;
+    parts.push(`<text x="${left+w*size+24}" y="${top+(r+.5)*size+6}" text-anchor="middle" font-size="19" font-weight="700" fill="${confirmed===clue?'#008800':'#243242'}">${clue}</text>`);
+  });"""
 
 VECTOR_TRACKS = """      for(const d of values[0]){
         const [dx,dy]=DIR[d];
@@ -134,9 +167,17 @@ def main() -> None:
         raise ValueError("Could not find the vector track renderer")
     if base.PAGE.count(STRETCHED_BOARD) != 1 or base.PAGE.count(SVG_OPEN) != 1:
         raise ValueError("Could not find the original board sizing")
+    if base.PAGE.count(OLD_LEGEND_COLORS) != 1 or base.PAGE.count(OLD_LEGEND_TEXT) != 1:
+        raise ValueError("Could not find the original legend")
+    if base.PAGE.count(OLD_COLUMN_CLUES) != 1 or base.PAGE.count(OLD_ROW_CLUES) != 1:
+        raise ValueError("Could not find the original clue renderer")
     page = base.PAGE.replace("const DIR=", TILE_IMAGES + "\nconst DIR=", 1)
     page = page.replace(VECTOR_TRACKS, IMAGE_TRACKS)
     page = page.replace(STRETCHED_BOARD, NATURAL_BOARD)
+    page = page.replace(OLD_LEGEND_COLORS, NEW_LEGEND_COLORS)
+    page = page.replace(OLD_LEGEND_TEXT, NEW_LEGEND_TEXT)
+    page = page.replace(OLD_COLUMN_CLUES, NEW_COLUMN_CLUES)
+    page = page.replace(OLD_ROW_CLUES, NEW_ROW_CLUES)
     page = page.replace(SVG_OPEN, SIZED_SVG_OPEN)
     page = page.replace("const size=48,left=22", "const size=45,left=22")
     page = page.replace("    let fill='white';", "    let fill=given.has(cellKey)?'#ccc':'white';")

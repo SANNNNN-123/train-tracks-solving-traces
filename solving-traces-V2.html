@@ -22,7 +22,7 @@ button:hover {background:#edf3fa} button:disabled {opacity:.45}
 .board-panel {min-width:0} #board {width:100%;overflow:auto} #board svg {display:block;max-width:100%;height:auto;margin:auto}
 .legend {display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 0;color:#53677c;font-size:13px}
 .legend span {display:inline-flex;align-items:center;gap:5px} .swatch {width:12px;height:12px;border-radius:3px;display:inline-block}
-.given {background:#245baa}.placed {background:#252b35}.branch {background:#edab34}.changed {background:#8bcfa8}.conflict {background:#e57b78}
+.given {background:#ccc;border:1px solid #a8b5c4}.placed {background:linear-gradient(180deg,white 38%,#252b35 38%,#252b35 60%,white 60%);border:1px solid #a8b5c4}.branch {background:#fff0cd;border:2px solid #b27600}.changed {background:#ddf3e5;border:2px solid #23834b}.conflict {background:#fbe2e0;border:2px solid #c63530}.undo {background:#ece4fa;border:2px solid #7654b0}
 .detail h2 {font-size:18px;margin:0 0 12px} .badge {display:inline-block;border-radius:99px;padding:4px 9px;font-size:12px;font-weight:750;background:#e6eef8;color:#20466f}
 .badge.wrong {background:#fff0d2;color:#79510d}.badge.conflict {background:#fbe2e0;color:#8b3030}.badge.undo {background:#ece4fa;color:#5b3c89}.badge.done {background:#dcf4e3;color:#17603d}
 #action {font-size:17px;line-height:1.48;margin:13px 0 10px;overflow-wrap:anywhere}
@@ -52,12 +52,14 @@ button:hover {background:#edf3fa} button:disabled {opacity:.45}
   <section class="board-panel" aria-label="Puzzle board">
     <div id="board"></div>
     <div class="legend">
-      <span><i class="swatch given"></i> Given rail</span>
-      <span><i class="swatch placed"></i> Fixed rail</span>
+      <span><i class="swatch given"></i> Given track</span>
+      <span><i class="swatch placed"></i> Fixed track</span>
       <span><i class="swatch changed"></i> Deduction</span>
       <span><i class="swatch branch"></i> Trial branch</span>
       <span><i class="swatch conflict"></i> Contradiction</span>
-      <span>× Empty · ?N N candidates</span>
+      <span><i class="swatch undo"></i> Undo</span>
+      <span>× Empty cell</span>
+      <span>?N = N remaining choices</span>
     </div>
   </section>
   <aside class="detail" aria-live="polite">
@@ -125,8 +127,14 @@ function svgBoard(puzzle,board,action){
   const active=currentHighlight(action,puzzle);
   let parts=[`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Puzzle board after selected action" xmlns="http://www.w3.org/2000/svg">`,
     `<rect width="${W}" height="${H}" fill="white"/>`];
-  puzzle.columns.forEach((clue,c)=>parts.push(`<text x="${left+(c+.5)*size}" y="29" text-anchor="middle" font-size="19" font-weight="700" fill="#243242">${clue}</text>`));
-  puzzle.rows.forEach((clue,r)=>parts.push(`<text x="${left+w*size+24}" y="${top+(r+.5)*size+6}" text-anchor="middle" font-size="19" font-weight="700" fill="#243242">${clue}</text>`));
+  puzzle.columns.forEach((clue,c)=>{
+    const confirmed=board.reduce((count,line)=>count+(!(line[c]&BITS.XX)?1:0),0);
+    parts.push(`<text x="${left+(c+.5)*size}" y="29" text-anchor="middle" font-size="19" font-weight="700" fill="${confirmed===clue?'#008800':'#243242'}">${clue}</text>`);
+  });
+  puzzle.rows.forEach((clue,r)=>{
+    const confirmed=board[r].filter(mask=>!(mask&BITS.XX)).length;
+    parts.push(`<text x="${left+w*size+24}" y="${top+(r+.5)*size+6}" text-anchor="middle" font-size="19" font-weight="700" fill="${confirmed===clue?'#008800':'#243242'}">${clue}</text>`);
+  });
   for(let r=0;r<h;r++)for(let c=0;c<w;c++){
     const x=left+c*size,y=top+r*size,cx=x+size/2,cy=y+size/2;
     const values=names(board[r][c]),fixed=values.length===1,cellKey=`${r+1},${c+1}`;
