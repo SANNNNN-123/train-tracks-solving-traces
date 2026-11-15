@@ -53,6 +53,8 @@ def parse_args():
     parser.add_argument("--branch-search-budget", type=int, default=4000,
                         help="Max search nodes per branch decision")
     parser.add_argument("--output", type=Path, default=Path("/kaggle/working/eval.json"))
+    parser.add_argument("--only", default=None,
+                        help="Comma-separated puzzle ids to evaluate; bypasses sampling")
     parser.add_argument("--compact", action="store_true",
                         help="Drop board snapshots from the saved history")
     parser.add_argument("--local-files-only", action="store_true")
@@ -214,6 +216,16 @@ def rollout(policy, record, args):
     }
 
 
+def filter_only(puzzles, spec):
+    """Restrict a puzzle list to the ids in ``spec`` (comma separated)."""
+    wanted = [part.strip() for part in spec.split(",") if part.strip()]
+    by_id = {record["puzzle_id"]: record for record in puzzles}
+    missing = [pid for pid in wanted if pid not in by_id]
+    if missing:
+        raise SystemExit(f"--only: not in this split/sample: {missing}")
+    return [by_id[pid] for pid in wanted]
+
+
 def main():
     args = parse_args()
     import torch
@@ -227,7 +239,10 @@ def main():
             raise SystemExit("No test_medium puzzles in the data file")
         split = "test_medium"
         sample_strategy = "full_set"
-        if args.limit:
+        if args.only:
+            puzzles = filter_only(puzzles, args.only)
+            sample_strategy = "explicit_ids"
+        elif args.limit:
             puzzles = select_medium_sample(puzzles, args.limit)
             sample_strategy = "deterministic_board_size_stratified"
     else:
@@ -237,7 +252,10 @@ def main():
         puzzles.sort(key=lambda record: record["puzzle_id"])
         split = "internal_puzzle_holdout_from_212_training_puzzles"
         sample_strategy = "dev_holdout"
-        if args.limit:
+        if args.only:
+            puzzles = filter_only(puzzles, args.only)
+            sample_strategy = "explicit_ids"
+        elif args.limit:
             puzzles = puzzles[:args.limit]
 
     try:

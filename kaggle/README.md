@@ -41,6 +41,7 @@ SFT). The package evaluates the *same* 32-puzzle shape-stratified sample
 | `data/train-puzzles-medium.jsonl` | 304 held-out medium puzzles — **evaluation only**; `--limit 32` picks the same deterministic shape-stratified sample as run-03. |
 | `configs/accelerate_t4x2.yaml` | `MULTI_GPU`, 2 processes, `fp16`. |
 | `notebooks/train_tracks_traces_kaggle.ipynb` | **Standalone** end-to-end notebook: embeds the library and writes it to `/kaggle/working/tt`, so it only needs the three data files. Install → env check → stats → smoke → train → baseline eval → improved eval → compare, with per-step logs. |
+| `notebooks/probe_action_budget.ipynb` | **Standalone** probe: re-runs the 10 medium puzzles run-04 left unsolved with `--max-actions 512` and `--max-new-tokens 16`, sharded over both GPUs. No training. |
 | `selfcheck.py` | CPU-only harness check: oracle rollout plus a step-by-step replay of run-03 (14/32, 123 undos, 0 mismatches), so board updates, undo and filter safety are verified before spending GPU time. |
 | `requirements.txt` | Pins, without torch. Used by the CLI route; the notebook installs the same versions inline. |
 
@@ -251,6 +252,42 @@ Each rollout is up to 256 actions; expect **~25 min per evaluation**.
 
 Drop `--compact` if you want per-step board snapshots for failure analysis
 (large: ~30 MB per run).
+
+### 4b. Targeted re-runs (`--only`) and the action-budget probe
+
+`--only` replaces both sampling paths with an explicit id list, so you can re-run
+just the puzzles that failed:
+
+```bash
+!python evaluate_kaggle.py \
+    --adapter /kaggle/working/run-branch/adapter \
+    --branch-search-depth 2 \
+    --max-actions 512 --max-new-tokens 16 \
+    --only 03092026-medium,10012026-medium \
+    --output /kaggle/working/eval-only.json --compact
+```
+
+Ids must exist in the selected split (`test_medium`, or the small dev holdout);
+anything else raises `--only: not in this split/sample`. The report records
+`"sample_strategy": "explicit_ids"` so a partial run is never mistaken for a full
+one. Every other flag behaves as usual.
+
+`notebooks/probe_action_budget.ipynb` wraps this: it re-runs the 10 medium
+puzzles run-04 left unsolved with `--max-actions 512` and
+`--max-new-tokens 16`, split 5/5 across both GPUs as concurrent processes. No
+training. Attach two datasets — the run-04 adapter files (flat, not the zip) and
+the data dataset containing `train-puzzles-medium.jsonl` — then Run All; expect
+**~45–55 min**. The threshold to read off the merged table:
+
+* **3+ puzzles flip** → the 256-action cap was binding. Retrain nothing; adopt
+  `--max-actions 384` and re-run the full 32 (~25–26/32).
+* **0–1 flip** → the failures are branch guesses the depth-2 filter cannot
+  resolve, so a larger budget will not help. Move to branch-state training or a
+  better scorer instead of buying GPU hours.
+
+`--max-new-tokens 16` is safe for the current action format (the reply targets
+~8 tokens); the probe's `invalid` column verifies it — a non-zero count means a
+truncated reply.
 
 ### 5. Compare
 
