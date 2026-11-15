@@ -75,16 +75,20 @@ function stopPlayback(){
   els.play.textContent='Play';
   els.play.setAttribute('aria-pressed','false');
 }
+function startPlaybackTimer(){
+  if(playbackTimer!==null)clearInterval(playbackTimer);
+  playbackTimer=setInterval(()=>{
+    position++;
+    render();
+    if(position>=puzzles()[selected].events.length)stopPlayback();
+  },450/Number(els.speed.value));
+}
 function togglePlayback(){
   if(playbackTimer!==null){stopPlayback();return}
   if(position>=puzzles()[selected].events.length){position=0;render()}
   els.play.textContent='Pause';
   els.play.setAttribute('aria-pressed','true');
-  playbackTimer=setInterval(()=>{
-    position++;
-    render();
-    if(position>=puzzles()[selected].events.length)stopPlayback();
-  },450);
+  startPlaybackTimer();
 }
 """
 
@@ -185,11 +189,21 @@ def main() -> None:
     page = page.replace(
         '  <span id="step-label"></span>',
         '  <button id="play" type="button" aria-pressed="false">Play</button>\n'
+        '  <label class="speed-control" for="speed">Speed <select id="speed">'
+        '<option value="1">1×</option><option value="2">2×</option>'
+        '<option value="5">5×</option><option value="10">10×</option>'
+        '</select></label>\n'
         '  <span id="step-label"></span>',
     )
     page = page.replace(
+        '.stepbar input {flex:1;',
+        '.speed-control {display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:650;color:#40536a}'
+        '.stepbar select {min-width:75px;width:auto;padding:7px 9px}'
+        '.stepbar input {flex:1;',
+    )
+    page = page.replace(
         "['mode','puzzle','step','step-label'",
-        "['mode','puzzle','step','play','step-label'",
+        "['mode','puzzle','step','play','speed','step-label'",
     )
     page = page.replace("function choosePuzzle(index){", PLAYBACK + "function choosePuzzle(index){")
     page = page.replace("function choosePuzzle(index){\n  selected=index;", "function choosePuzzle(index){\n  stopPlayback();\n  selected=index;")
@@ -200,6 +214,7 @@ def main() -> None:
     page = page.replace(
         "els['next-branch'].addEventListener",
         "els.play.addEventListener('click',togglePlayback);\n"
+        "els.speed.addEventListener('change',()=>{if(playbackTimer!==null)startPlaybackTimer()});\n"
         "els['next-branch'].addEventListener",
     )
     page = page.replace("__EASY_COUNT__", html.escape(str(len(easy_puzzles))))

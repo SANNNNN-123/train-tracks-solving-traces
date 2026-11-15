@@ -16,7 +16,7 @@ select {min-width:220px;max-width:100%;padding:9px 11px;border:1px solid #b7c7d7
 button {padding:9px 12px;border:1px solid #aabfd3;border-radius:8px;background:white;color:#1a3655}
 button:hover {background:#edf3fa} button:disabled {opacity:.45}
 .stepbar {display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:white;border:1px solid #dce5ee;border-radius:12px;padding:12px 14px;margin-bottom:16px}
-.stepbar input {flex:1;min-width:180px;accent-color:#265f9a} #step-label {min-width:100px;font-variant-numeric:tabular-nums;font-weight:700}
+.speed-control {display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:650;color:#40536a}.stepbar select {min-width:75px;width:auto;padding:7px 9px}.stepbar input {flex:1;min-width:180px;accent-color:#265f9a} #step-label {min-width:100px;font-variant-numeric:tabular-nums;font-weight:700}
 .layout {display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,340px);gap:18px;align-items:start}
 .board-panel,.detail {background:white;border:1px solid #dce5ee;border-radius:14px;padding:16px}
 .board-panel {min-width:0} #board {width:100%;overflow:auto} #board svg {display:block;max-width:100%;height:auto;margin:auto}
@@ -45,6 +45,7 @@ button:hover {background:#edf3fa} button:disabled {opacity:.45}
   <button id="previous" type="button" aria-label="Previous action">← Previous</button>
   <button id="next" type="button" aria-label="Next action">Next →</button>
   <button id="play" type="button" aria-pressed="false">Play</button>
+  <label class="speed-control" for="speed">Speed <select id="speed"><option value="1">1×</option><option value="2">2×</option><option value="5">5×</option><option value="10">10×</option></select></label>
   <span id="step-label"></span>
   <input id="step" type="range" min="0" value="0" aria-label="Trace step">
 </div>
@@ -78,7 +79,7 @@ const TILES=['XX','NS','EW','NE','NW','SE','SW'];
 const BITS=Object.fromEntries(TILES.map((name,i)=>[name,1<<i]));
 const TILE_IMAGES=Object.fromEntries(['EW','NS','NE','SE','SW','NW'].map(name=>[name,`data/assets/boardtracks-${name}.svg`]));
 const DIR={N:[0,-1],E:[1,0],S:[0,1],W:[-1,0]};
-const els=Object.fromEntries(['mode','puzzle','step','play','step-label','previous','next','next-branch','next-conflict','board','puzzle-title','kind','action','meta','candidates'].map(id=>[id,document.getElementById(id)]));
+const els=Object.fromEntries(['mode','puzzle','step','play','speed','step-label','previous','next','next-branch','next-conflict','board','puzzle-title','kind','action','meta','candidates'].map(id=>[id,document.getElementById(id)]));
 let mode='easy',selected=0,position=0,frames=[];
 function puzzles(){return PUZZLES[mode]}
 function copy(board){return board.map(line=>line.slice())}
@@ -209,16 +210,20 @@ function stopPlayback(){
   els.play.textContent='Play';
   els.play.setAttribute('aria-pressed','false');
 }
+function startPlaybackTimer(){
+  if(playbackTimer!==null)clearInterval(playbackTimer);
+  playbackTimer=setInterval(()=>{
+    position++;
+    render();
+    if(position>=puzzles()[selected].events.length)stopPlayback();
+  },450/Number(els.speed.value));
+}
 function togglePlayback(){
   if(playbackTimer!==null){stopPlayback();return}
   if(position>=puzzles()[selected].events.length){position=0;render()}
   els.play.textContent='Pause';
   els.play.setAttribute('aria-pressed','true');
-  playbackTimer=setInterval(()=>{
-    position++;
-    render();
-    if(position>=puzzles()[selected].events.length)stopPlayback();
-  },450);
+  startPlaybackTimer();
 }
 function choosePuzzle(index){
   stopPlayback();
@@ -250,6 +255,7 @@ els.step.addEventListener('input',()=>{stopPlayback();position=Number(els.step.v
 els.previous.addEventListener('click',()=>{stopPlayback();if(position>0){position--;render()}});
 els.next.addEventListener('click',()=>{stopPlayback();if(position<puzzles()[selected].events.length){position++;render()}});
 els.play.addEventListener('click',togglePlayback);
+els.speed.addEventListener('change',()=>{if(playbackTimer!==null)startPlaybackTimer()});
 els['next-branch'].addEventListener('click',()=>jumpTo('branch'));
 els['next-conflict'].addEventListener('click',()=>jumpTo('contradiction'));
 document.addEventListener('keydown',event=>{
