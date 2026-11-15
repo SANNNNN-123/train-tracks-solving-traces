@@ -248,7 +248,9 @@ To reproduce the baseline's effective batch of 16 instead of 32, add
 
 Both runs use the same 32 shape-stratified medium puzzles (`--limit 32`,
 deterministic by puzzle-id hash), so the two JSONs are directly comparable.
-Each rollout is up to 256 actions; expect **~25 min per evaluation**.
+Each rollout is up to 256 actions; expect **~25 min per evaluation**. At
+`--max-actions 512` (the recommended setting after the budget probe) budget
+~40–45 min per full evaluation, since cost scales linearly with actions.
 
 Drop `--compact` if you want per-step board snapshots for failure analysis
 (large: ~30 MB per run).
@@ -277,13 +279,28 @@ puzzles run-04 left unsolved with `--max-actions 512` and
 `--max-new-tokens 16`, split 5/5 across both GPUs as concurrent processes. No
 training. Attach two datasets — the run-04 adapter files (flat, not the zip) and
 the data dataset containing `train-puzzles-medium.jsonl` — then Run All; expect
-**~45–55 min**. The threshold to read off the merged table:
+**~45–55 min**.
 
-* **3+ puzzles flip** → the 256-action cap was binding. Retrain nothing; adopt
-  `--max-actions 384` and re-run the full 32 (~25–26/32).
-* **0–1 flip** → the failures are branch guesses the depth-2 filter cannot
-  resolve, so a larger budget will not help. Move to branch-state training or a
-  better scorer instead of buying GPU hours.
+**Measured result (2026-11-15): 6/10 flipped → 28/32**, at 42 min wall clock for
+the slower shard. Cells at 256 → 512 were `23→16, 76→90, 40→90, 35→38, 71→81,
+64→90, 76→100, 20→90, 40→81, 49→54`; 0 invalid actions in 173 branch decisions,
+16 filter overrides. The finishing counts split into two groups:
+
+| Flips | Actions needed | Cheap at 384? |
+| --- | --- | --- |
+| `18102026`, `10012026`, `22012026` | 270, 274, 289 | yes |
+| `19042026`, `24032026`, `13072026` | 407, 422, 434 | no |
+
+So **use `--max-actions 512`, not 384**: 384 returns only 3 of the 6 flips
+(25/32). The four remaining ids (`03092026`, `14072026`, `25022026`,
+`30082026`) still hit the cap, and `03092026` actually regressed 23 → 16 cells —
+the extra budget let it commit to a wrong branch it used to abandon. Those are
+policy-bound, so the next gain has to come from branch quality, not from a larger
+cap or a larger model.
+
+The report for that run is
+`output/eval/run-04-branch-search-depth/probe-merged.html` (self-contained, no
+CDN) beside the raw `probe-merged.json`.
 
 `--max-new-tokens 16` is safe for the current action format (the reply targets
 ~8 tokens); the probe's `invalid` column verifies it — a non-zero count means a
@@ -305,11 +322,11 @@ for name in ("eval-baseline", "eval-improved"):
 
 ## What to expect
 
-| Metric | run-03 baseline | This package (target) |
-| --- | --- | --- |
-| Medium solved | 14/32 | ~19–24/32 |
-| Branch accuracy on clean boards | 68.2% | 92.4% (filter ceiling) |
-| True branch value rejected | n/a | never, while the board still contains the solution |
+| Metric | run-03 baseline | run-04, 256 actions | run-04, 512 actions |
+| --- | --- | --- | --- |
+| Medium solved | 14/32 | 22/32 (measured) | 28/32 (measured) |
+| Branch accuracy on clean boards | 68.2% | 98.5% solved / 54% on failures | unchanged |
+| True branch value rejected | n/a | never, while the board still contains the solution | same |
 
 The search is an **oracle-free safety net**, not a solver: it only removes a
 branch value when propagation plus two guesses hits a contradiction. When both
