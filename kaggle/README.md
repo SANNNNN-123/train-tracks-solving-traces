@@ -35,6 +35,7 @@ SFT). The package evaluates the *same* 32-puzzle shape-stratified sample
 | `train_kaggle.py` | LoRA SFT with fp16/bf16 auto-selection and DDP. Kaggle port of `modal/train.py`. `--examples/--dev-examples` train on a precomputed JSONL, `--init-adapter` continues an existing adapter. |
 | `evaluate_kaggle.py` | Rollout evaluator with `--branch-search-depth {0,2}`. Kaggle port of `modal/evaluate.py`. |
 | `medium_traces.py` | Turns audited medium solutions into branch-state SFT rows: oracle rollout per puzzle, the three-way split (240 train / 32 eval / 32 fresh) and a `--limit` smoke mode. |
+| `dagger_traces.py` | DAgger: records the policy's own branch states, labels them from the audited solution, and builds branch-only rows (unrecoverable states counted and skipped). |
 | `action_policy.py` | Legal-action menu, prompt, parser, validator (unchanged from the baseline). |
 | `trace_logic.py` | Rule engine and board helpers (unchanged). |
 | `data/train.jsonl` | 24,565 small-puzzle trace rows — **the only training data**. |
@@ -44,6 +45,7 @@ SFT). The package evaluates the *same* 32-puzzle shape-stratified sample
 | `notebooks/train_tracks_traces_kaggle.ipynb` | **Standalone** end-to-end notebook: embeds the library and writes it to `/kaggle/working/tt`, so it only needs the three data files. Install → env check → stats → smoke → train → baseline eval → improved eval → compare, with per-step logs. |
 | `notebooks/probe_action_budget.ipynb` | **Standalone** probe: re-runs the 10 medium puzzles run-04 left unsolved with `--max-actions 512` and `--max-new-tokens 16`, sharded over both GPUs. No training. |
 | `notebooks/train_tracks_medium_branch_sft.ipynb` | **Standalone** run-05: builds the branch-state dataset from 240 medium puzzles, continues the run-04 adapter for one epoch at 1e-4, then re-evaluates all 32 ids at 512 actions. |
+| `notebooks/train_tracks_medium_dagger.ipynb` | **Standalone** run-06: collects the adapter's own branch states from 40 medium puzzles, trains branch-only rows at 2e-4, and re-runs the 10-id probe with a branch-sequence comparison against run-04. |
 | `selfcheck.py` | CPU-only harness check: oracle rollout plus a step-by-step replay of run-03 (14/32, 123 undos, 0 mismatches), so board updates, undo and filter safety are verified before spending GPU time. |
 | `requirements.txt` | Pins, without torch. Used by the CLI route; the notebook installs the same versions inline. |
 
@@ -373,6 +375,68 @@ needed, the guard is cheap — the 32 small dev puzzles take ~12 min at 256 acti
 (6 min on two shards), and a rehearsal slice of ~60 small puzzles' branch examples
 (~1.2k rows) is the fix if that guard fails.
 
+**Measured result (run-05): no transfer, and the reason is instructive.**
+
+| Measurement | Value |
+| --- | --- |
+| Training | 7,488 rows, 234 optimizer steps, 2.12 h, 2 GPUs, 6.66 GiB peak |
+| Dev loss, 32 puzzles never trained on | 0.1157 → **0.0491** (−58%) |
+| Per-token probability of the correct completion | 89.1% → 95.2% |
+| Probe | **6/10, identical to run-04**: 0 fixed, 0 lost, 0 invalid |
+| Branch decisions changed | 3 of 10 puzzles, one decision each |
+| Correct branch decisions | 96/173 → 95/163 |
+| Deduction actions | 3,753 → 3,975 (+5.9%) |
+
+It learned — the drop is on *unseen* puzzles, so this is not memorisation — but what
+it learned was the wrong states. A baseline dev loss of 0.116 per token over a ~7-token
+completion (~0.8 nats) means run-04 already put the correct choice first on essentially
+every teacher-state example; the only headroom was the margin, and the epoch spent 2 h
+consuming it. The boards that fail are the ones the model **creates itself** after a
+wrong branch, and the oracle never visits them. Loss on teacher states is therefore a
+metric that cannot see the failure — see §4d for the fix.
+
+### 4d. DAgger on the policy's own branch states (run-06)
+
+`dagger_traces.py` closes the distribution gap. Collection mode wraps any policy,
+rolls out the adapter, and stores the **exact board at every branch decision** plus
+the audited value:
+
+```bash
+python dagger_traces.py --adapter /kaggle/input/run-04-branch-search-depth \
+    --data data/train-puzzles-medium.jsonl \
+    --only 25032026-medium,02012026-medium,... \
+    --max-actions 256 --branch-search-depth 2 --max-new-tokens 16 \
+    --output /kaggle/working/dagger/dagger-shard0.jsonl
+```
+
+Build mode turns those states into branch-only rows:
+
+```bash
+python dagger_traces.py --build --states dagger-shard0.jsonl,dagger-shard1.jsonl \
+    --output-dir /kaggle/working/dagger --role train --only <ids>
+```
+
+Three properties matter:
+
+* **Label = the audited value**, so a state where the policy guessed wrong becomes a
+  corrected positive. Both menu orders are still generated.
+* **Unrecoverable states are counted, not trained.** If a poisoned board no longer
+  offers the true tile, no label would be correct; the builder reports
+  `unrecoverable` and skips it rather than teaching the other value.
+* **Repeated boards are deduped.** A revisit after undo renders the same prompt.
+
+`notebooks/train_tracks_medium_dagger.ipynb` runs the whole loop: 32 training puzzles
+(plus 8 held-out fresh puzzles for dev loss), 2 shards, ~70–85 min collection, ~900
+branch rows, 3 epochs at 2e-4 (~40–60 min), then the same 10-id probe. It also
+compares branch **sequences** against run-04's, embedded in the notebook — run-05
+changed 3 of 10 and gained nothing, so "did the policy move at all" is now an explicit
+check rather than something inferred from counts.
+
+Success bar: **7+/10** on the probe with sequences that differ from run-04. 6/10 with
+different sequences means the policy moved but not enough; 6/10 with identical
+sequences means these states still were not the binding ones. If it clears 7/10,
+scale collection to all 240 training puzzles (~7 h on 2 GPUs) for the final adapter.
+
 ### 5. Compare
 
 ```python
@@ -395,10 +459,13 @@ for name in ("eval-baseline", "eval-improved"):
 | Branch accuracy on clean boards | 68.2% | 98.5% solved / 54% on failures | unchanged |
 | True branch value rejected | n/a | never, while the board still contains the solution | same |
 
-Run-05 (§4c) continues from the 28/32 adapter and fine-tunes on medium branch
-states. Its result is not in this table until the notebook has run; the target is
-**30+/32 with no puzzle lost**, and the notebook prints both the gains and the
-losses so a trade cannot hide inside the total.
+Run-05 (§4c) continued from the 28/32 adapter and fine-tuned on medium branch
+states: it moved dev loss 58% and the probe **not at all** (6/10, identical branch
+sequences on 7 of 10 puzzles). Run-06 (§4d) trains on the adapter's own branch
+states instead, which is the only distribution that contains the failures. Its
+result is not in this table until the notebook has run; the target is **30+/32 with
+no puzzle lost**, and the notebook prints gains and losses separately so a trade
+cannot hide inside the total.
 
 The search is an **oracle-free safety net**, not a solver: it only removes a
 branch value when propagation plus two guesses hits a contradiction. When both
@@ -504,13 +571,14 @@ holdout is 32 small puzzles chosen by puzzle-id hash
 
 ## Next steps (not included)
 
-* **DAgger on branch states.** Run-05 trains on *teacher* branch states: the
-  board as the audited solution reaches it. DAgger would instead roll out the
-  current adapter on **training** puzzles only, keep the branch states it actually
-  reaches, label them with the audited solution, and add those to the next epoch.
-  That closes the train/eval distribution gap the static traces leave open, and it
-  is the natural follow-up if run-05's dev loss falls but the medium score does not
-  move.
+* **Scale DAgger to the full training pool.** Run-06 (§4d) collects 40 of the 240
+  training puzzles. If it clears the 7/10 bar, roll out all 240 (~7 h on 2 GPUs at
+  256 actions) and train on the resulting ~3,000 branch states. That is the version
+  worth keeping as a checkpoint.
+* **Track decision accuracy, not just loss.** Run-05's 58% dev-loss drop came with
+  zero decision changes. A teacher-forced argmax accuracy on the dev rows would have
+  shown the headroom was ~0 before spending 2 GPU-hours; worth adding to
+  `train_kaggle.py` before the next training run.
 * **Calibrate the fallback.** When both values survive the filter, the model
   decides. A small value-prior head or a deeper budget on ambiguous boards is
   where the remaining headroom is.

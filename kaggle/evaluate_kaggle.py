@@ -226,11 +226,41 @@ def filter_only(puzzles, spec):
     return [by_id[pid] for pid in wanted]
 
 
-def main():
-    args = parse_args()
+def load_policy(args):
+    """Load the adapter and return ``policy(state, actions) -> raw text``.
+
+    Shared by the evaluator and the DAgger collector so both see the identical
+    tokenizer, dtype and chat template.
+    """
     import torch
     from peft import PeftModel
     from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(
+            args.adapter, local_files_only=args.local_files_only)
+    except (OSError, ValueError):
+        # Older adapters may only contain weights/config; the base tokenizer is
+        # the same one training used.
+        tokenizer = AutoTokenizer.from_pretrained(
+            args.model, local_files_only=args.local_files_only)
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    # bf16 requires sm_80+.  `is_bf16_supported()` can return True on some T4
+    # images, where bf16 then falls back to slow emulation.
+    capability = torch.cuda.get_device_capability(0) if torch.cuda.is_available() else (0, 0)
+    bf16_ok = capability[0] >= 8 and torch.cuda.is_bf16_supported()
+    dtype = torch.bfloat16 if bf16_ok else torch.float16
+    base = AutoModelForCausalLM.from_pretrained(
+        args.model, dtype=dtype, attn_implementation="sdpa",
+        local_files_only=args.local_files_only)
+    model = PeftModel.from_pretrained(base, str(args.adapter)).to("cuda").eval()
+    model.config.use_cache = True
+    return model_policy(model, tokenizer, args)
+
+
+def main():
+    args = parse_args()
 
     if args.dataset == "medium":
         source = [json.loads(line) for line in args.data.open(encoding="utf-8")]
@@ -258,29 +288,8 @@ def main():
         elif args.limit:
             puzzles = puzzles[:args.limit]
 
-    try:
-        tokenizer = AutoTokenizer.from_pretrained(
-            args.adapter, local_files_only=args.local_files_only)
-    except (OSError, ValueError):
-        # Older adapters may only contain weights/config; the base tokenizer is
-        # the same one training used.
-        tokenizer = AutoTokenizer.from_pretrained(
-            args.model, local_files_only=args.local_files_only)
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
-    # bf16 requires sm_80+.  `is_bf16_supported()` can return True on some T4
-    # images, where bf16 then falls back to slow emulation.
-    capability = torch.cuda.get_device_capability(0) if torch.cuda.is_available() else (0, 0)
-    bf16_ok = capability[0] >= 8 and torch.cuda.is_bf16_supported()
-    dtype = torch.bfloat16 if bf16_ok else torch.float16
-    base = AutoModelForCausalLM.from_pretrained(
-        args.model, dtype=dtype, attn_implementation="sdpa",
-        local_files_only=args.local_files_only)
-    model = PeftModel.from_pretrained(base, str(args.adapter)).to("cuda").eval()
-    model.config.use_cache = True
-
     results = []
-    policy = model_policy(model, tokenizer, args)
+    policy = load_policy(args)
     for index, record in enumerate(puzzles, 1):
         result = rollout(policy, record, args)
         results.append(result)
