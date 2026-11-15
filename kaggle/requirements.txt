@@ -1,0 +1,19 @@
+# Kaggle T4 x2 runtime dependencies.
+#
+# Do NOT install torch here: Kaggle ships a CUDA-enabled torch that matches its
+# image, and replacing it breaks the GPU runtime.  These pins mirror the Modal
+# baseline (modal/train.py) minus torch.
+#
+# Also uninstall torchao before training.  Kaggle's image has torchao 0.10 and
+# PEFT >= 0.21 refuses to inject LoRA:
+#   ImportError: Found an incompatible version of torchao. Found version 0.10.0,
+#   but only versions above 0.16.0 are supported
+# Upgrading torchao pulls a new torch, so remove it:
+#   pip uninstall -y torchao
+transformers==5.22.2
+trl>=1.15.0,<2
+peft>=0.21.2,<1
+datasets>=4.8.4,<5
+accelerate>=1.15.0,<2
+huggingface-hub>=1.31.0,<2
+safetensors>=0.8.0,<1

@@ -1,0 +1,17 @@
+# Kaggle "GPU T4 x2" DDP configuration.
+#
+# T4 (sm_75) has no bf16 support, so mixed precision must be fp16.
+# train_kaggle.py additionally picks fp16 vs bf16 per device; this file keeps
+# accelerate's own autocast in the same mode.
+compute_environment: LOCAL_MACHINE
+distributed_type: MULTI_GPU
+num_processes: 2
+gpu_ids: all
+mixed_precision: fp16
+downcast_bf16: "no"
+machine_rank: 0
+main_training_function: main
+rdzv_backend: static
+same_network: true
+use_cpu: false
+debug: false
