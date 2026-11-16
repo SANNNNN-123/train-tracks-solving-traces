@@ -49,6 +49,7 @@ SFT). The package evaluates the *same* 32-puzzle shape-stratified sample
 | `notebooks/train_tracks_dagger_adapter_only.ipynb` | Training half only: takes `train-examples.jsonl`/`dev-examples.jsonl` from a dataset and zips the run-06 adapter (~35-45 min) without paying for collection again. |
 | `notebooks/compare_small_baseline_vs_run04.ipynb` | **Standalone** comparison on the 32-puzzle small holdout: base Qwen2.5-1.5B vs the run-04 adapter, each with and without the depth-2 filter (4 arms, one table). |
 | `evaluate_kaggle.py` `--base-model` | Zero-shot arm for that comparison: loads no adapter, reports `run_id: baseline-qwen2.5-1.5b`. |
+| `scripts/render_baseline_vs_run04.py` | Builds `output/eval/run-00-baseline-qwen25-vs-run04/comparison.html`: both policies on one puzzle, two boards, shared step slider, 32-row table. Same visual language as `solving-traces-V2.html`. |
 | `selfcheck.py` | CPU-only harness check: oracle rollout plus a step-by-step replay of run-03 (14/32, 123 undos, 0 mismatches), so board updates, undo and filter safety are verified before spending GPU time. |
 | `requirements.txt` | Pins, without torch. Used by the CLI route; the notebook installs the same versions inline. |
 
@@ -260,6 +261,14 @@ The two are not interchangeable: `--base-model` measures how much of the behavio
 training and how much is the base model plus the action menu. The report's `run_id`
 becomes `baseline-qwen2.5-1.5b`, so a zero-shot run cannot be mistaken for a trained
 one.
+
+**Measured (run-00, 32-puzzle small holdout):** zero-shot Qwen2.5-1.5B scores **0/32**
+with **312/1762 cells and 32 invalid actions**, while run-04 scores **31/32** with
+0 invalid on the same set. The base model emits valid `{"choice":"a00N"}` for a median
+of 7 actions, then drops the JSON wrapper (`"a000"`) and the rollout ends on that first
+malformed reply. On this distribution the adapter is the policy; the issue is output
+format, not puzzle reasoning. Details in
+`output/eval/run-00-baseline-qwen25-vs-run04/analysis.md`.
 
 ### 4. Improved evaluation (depth-2 branch filter)
 
