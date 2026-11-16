@@ -47,6 +47,8 @@ SFT). The package evaluates the *same* 32-puzzle shape-stratified sample
 | `notebooks/train_tracks_medium_branch_sft.ipynb` | **Standalone** run-05: builds the branch-state dataset from 240 medium puzzles, continues the run-04 adapter for one epoch at 1e-4, then re-evaluates all 32 ids at 512 actions. |
 | `notebooks/train_tracks_medium_dagger.ipynb` | **Standalone** run-06: collects the adapter's own branch states from 40 medium puzzles, trains branch-only rows at 2e-4, and re-runs the 10-id probe with a branch-sequence comparison against run-04. |
 | `notebooks/train_tracks_dagger_adapter_only.ipynb` | Training half only: takes `train-examples.jsonl`/`dev-examples.jsonl` from a dataset and zips the run-06 adapter (~35-45 min) without paying for collection again. |
+| `notebooks/compare_small_baseline_vs_run04.ipynb` | **Standalone** comparison on the 32-puzzle small holdout: base Qwen2.5-1.5B vs the run-04 adapter, each with and without the depth-2 filter (4 arms, one table). |
+| `evaluate_kaggle.py` `--base-model` | Zero-shot arm for that comparison: loads no adapter, reports `run_id: baseline-qwen2.5-1.5b`. |
 | `selfcheck.py` | CPU-only harness check: oracle rollout plus a step-by-step replay of run-03 (14/32, 123 undos, 0 mismatches), so board updates, undo and filter safety are verified before spending GPU time. |
 | `requirements.txt` | Pins, without torch. Used by the CLI route; the notebook installs the same versions inline. |
 
@@ -244,6 +246,20 @@ To reproduce the baseline's effective batch of 16 instead of 32, add
     --branch-search-depth 0 \
     --output /kaggle/working/eval-baseline.json --compact
 ```
+
+That baseline is the *trained* adapter without the filter. For the true zero-shot
+reference — base `Qwen/Qwen2.5-1.5B-Instruct`, no adapter at all — drop `--adapter`
+and add `--base-model`:
+
+```bash
+!python evaluate_kaggle.py --base-model --dataset small \
+    --branch-search-depth 0 --output /kaggle/working/eval-zeroshot.json --compact
+```
+
+The two are not interchangeable: `--base-model` measures how much of the behaviour is
+training and how much is the base model plus the action menu. The report's `run_id`
+becomes `baseline-qwen2.5-1.5b`, so a zero-shot run cannot be mistaken for a trained
+one.
 
 ### 4. Improved evaluation (depth-2 branch filter)
 

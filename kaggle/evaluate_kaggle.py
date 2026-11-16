@@ -1,11 +1,16 @@
 """Evaluate a trained adapter on Kaggle, with an optional safe branch search.
 
-Baseline (model alone):
+Zero-shot base model (no adapter), for a like-for-like comparison:
+
+    python evaluate_kaggle.py --base-model --dataset small \
+        --branch-search-depth 0 --output baseline.json
+
+Trained adapter, model alone:
 
     python evaluate_kaggle.py --adapter /kaggle/working/run-branch/adapter \
         --branch-search-depth 0 --output baseline.json
 
-Improved (depth-2 branch filter):
+Trained adapter with the depth-2 branch filter:
 
     python evaluate_kaggle.py --adapter /kaggle/working/run-branch/adapter \
         --branch-search-depth 2 --output improved.json
@@ -37,7 +42,10 @@ from trace_logic import (BIT, clue_from_record, completed_error,  # noqa: E402
 
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--adapter", type=Path, required=True)
+    parser.add_argument("--adapter", type=Path, default=None,
+                        help="LoRA adapter directory; omit with --base-model")
+    parser.add_argument("--base-model", action="store_true",
+                        help="Evaluate the base checkpoint with no adapter (zero-shot)")
     parser.add_argument("--data", type=Path,
                         default=HERE / "data/train-puzzles-medium.jsonl")
     parser.add_argument("--small-data", type=Path,
@@ -58,7 +66,12 @@ def parse_args():
     parser.add_argument("--compact", action="store_true",
                         help="Drop board snapshots from the saved history")
     parser.add_argument("--local-files-only", action="store_true")
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.adapter is None and not args.base_model:
+        parser.error("give --adapter for a trained policy, or --base-model for zero-shot")
+    if args.adapter is not None and args.base_model:
+        parser.error("--adapter and --base-model are mutually exclusive")
+    return args
 
 
 def state_for(board, clue, stack):
@@ -227,19 +240,24 @@ def filter_only(puzzles, spec):
 
 
 def load_policy(args):
-    """Load the adapter and return ``policy(state, actions) -> raw text``.
+    """Load the adapter (or the bare base model) and return the policy.
 
     Shared by the evaluator and the DAgger collector so both see the identical
-    tokenizer, dtype and chat template.
+    tokenizer, dtype and chat template.  With ``--base-model`` no adapter is
+    loaded, which is the zero-shot baseline.
     """
     import torch
-    from peft import PeftModel
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
-    try:
-        tokenizer = AutoTokenizer.from_pretrained(
-            args.adapter, local_files_only=args.local_files_only)
-    except (OSError, ValueError):
+    base_only = args.base_model or args.adapter is None
+    tokenizer = None
+    if not base_only:
+        try:
+            tokenizer = AutoTokenizer.from_pretrained(
+                args.adapter, local_files_only=args.local_files_only)
+        except (OSError, ValueError):
+            tokenizer = None
+    if tokenizer is None:
         # Older adapters may only contain weights/config; the base tokenizer is
         # the same one training used.
         tokenizer = AutoTokenizer.from_pretrained(
@@ -254,9 +272,21 @@ def load_policy(args):
     base = AutoModelForCausalLM.from_pretrained(
         args.model, dtype=dtype, attn_implementation="sdpa",
         local_files_only=args.local_files_only)
-    model = PeftModel.from_pretrained(base, str(args.adapter)).to("cuda").eval()
+    if base_only:
+        model = base
+    else:
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(base, str(args.adapter))
+    model = model.to("cuda").eval()
     model.config.use_cache = True
     return model_policy(model, tokenizer, args)
+
+
+def run_label(args):
+    """Identifier for the report: adapter name, or the base model."""
+    if args.base_model or args.adapter is None:
+        return "baseline-" + args.model.split("/")[-1].lower()
+    return args.adapter.parent.name if args.adapter.name == "adapter" else args.adapter.name
 
 
 def main():
@@ -298,7 +328,7 @@ def main():
               flush=True)
 
     report = {
-        "run_id": args.adapter.parent.name if args.adapter.name == "adapter" else args.adapter.name,
+        "run_id": run_label(args),
         "dataset": args.dataset,
         "split": split,
         "sample_strategy": sample_strategy,
