@@ -1,0 +1,28 @@
+{
+  "run_id": "run-dagger",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "task": "trace_action_policy",
+  "branch_augment": true,
+  "branch_repeat": 2,
+  "puzzles_train": 32,
+  "puzzles_dev": 7,
+  "train_examples": 566,
+  "dev_examples": 41,
+  "data_stats": {
+    "source": "precomputed",
+    "total": 566,
+    "puzzles": 32
+  },
+  "examples_file": "/kaggle/working/dagger/train-examples.jsonl",
+  "init_adapter": "/kaggle/input/datasets/zuhairsan/run-04-branch-search-depth",
+  "continued_training": true,
+  "optimizer_steps": 54,
+  "development_loss_before": 0.061498012393713,
+  "development_loss_after": 0.05964673310518265,
+  "train_runtime_seconds": 1006.7,
+  "peak_gpu_memory_gib": 3.65,
+  "dtype": "torch.float16",
+  "gpus": 2,
+  "adapter": "/kaggle/working/run-dagger/adapter",
+  "output_dir": "/kaggle/working/run-dagger"
+}

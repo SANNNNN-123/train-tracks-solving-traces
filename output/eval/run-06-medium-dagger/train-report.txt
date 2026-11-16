@@ -1,0 +1,17 @@
+{
+ "role": "train",
+ "states": 334,
+ "repeated_boards": 0,
+ "unique_states": 334,
+ "model_correct": 244,
+ "model_wrong": 90,
+ "unrecoverable": 51,
+ "puzzles": 32,
+ "labelled_rows": 283,
+ "examples": 566,
+ "by_kind": {
+  "branch": 283
+ },
+ "estimated_tokens": 382888,
+ "file": "/kaggle/working/dagger/train-examples.jsonl"
+}

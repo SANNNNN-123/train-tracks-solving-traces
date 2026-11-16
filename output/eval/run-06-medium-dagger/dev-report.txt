@@ -1,0 +1,17 @@
+{
+ "role": "dev",
+ "states": 51,
+ "repeated_boards": 0,
+ "unique_states": 51,
+ "model_correct": 38,
+ "model_wrong": 13,
+ "unrecoverable": 10,
+ "puzzles": 7,
+ "labelled_rows": 41,
+ "examples": 41,
+ "by_kind": {
+  "branch": 41
+ },
+ "estimated_tokens": 25359,
+ "file": "/kaggle/working/dagger/dev-examples.jsonl"
+}

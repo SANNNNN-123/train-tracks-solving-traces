@@ -46,6 +46,7 @@ SFT). The package evaluates the *same* 32-puzzle shape-stratified sample
 | `notebooks/probe_action_budget.ipynb` | **Standalone** probe: re-runs the 10 medium puzzles run-04 left unsolved with `--max-actions 512` and `--max-new-tokens 16`, sharded over both GPUs. No training. |
 | `notebooks/train_tracks_medium_branch_sft.ipynb` | **Standalone** run-05: builds the branch-state dataset from 240 medium puzzles, continues the run-04 adapter for one epoch at 1e-4, then re-evaluates all 32 ids at 512 actions. |
 | `notebooks/train_tracks_medium_dagger.ipynb` | **Standalone** run-06: collects the adapter's own branch states from 40 medium puzzles, trains branch-only rows at 2e-4, and re-runs the 10-id probe with a branch-sequence comparison against run-04. |
+| `notebooks/train_tracks_dagger_adapter_only.ipynb` | Training half only: takes `train-examples.jsonl`/`dev-examples.jsonl` from a dataset and zips the run-06 adapter (~35-45 min) without paying for collection again. |
 | `selfcheck.py` | CPU-only harness check: oracle rollout plus a step-by-step replay of run-03 (14/32, 123 undos, 0 mismatches), so board updates, undo and filter safety are verified before spending GPU time. |
 | `requirements.txt` | Pins, without torch. Used by the CLI route; the notebook installs the same versions inline. |
 
@@ -436,6 +437,32 @@ Success bar: **7+/10** on the probe with sequences that differ from run-04. 6/10
 different sequences means the policy moved but not enough; 6/10 with identical
 sequences means these states still were not the binding ones. If it clears 7/10,
 scale collection to all 240 training puzzles (~7 h on 2 GPUs) for the final adapter.
+
+**Measured first collection (run-06), and where this work stops.** 40 puzzles asked,
+39 delivered (one never stalled, so it offered no branch):
+
+| | Train | Dev |
+| --- | --- | --- |
+| Branch states | 334 | 51 |
+| Model already correct on its own board | 244 (73%) | 38 (75%) |
+| Unrecoverable (truth no longer offered) | 51 (15%) | 10 (20%) |
+| Rows after both menu orders | 566 | 41 |
+
+So the teachable signal is **42 wrong decisions**, 23 of them the eval failure
+signature (`XX → SE`), and the training set is **53 optimizer steps** at batch 32 —
+an order of magnitude smaller than run-05. The run was stopped after collection: the
+notebook's own guard (`dev puzzles == 8`) aborted papermill before training, which is
+the right failure but the wrong severity for a puzzle that simply never branched. The
+guard now warns instead, and the adapter-only path is sections 8 → 10 → 14.
+
+**Final state of this work: run-04 at 28/32 is the checkpoint.** Teacher-state SFT
+(run-05) was measured and rejected; DAgger (run-06) was collected, trained and
+evaluated on all 32 ids: **27/32**, with `24032026` lost because one branch decision
+that run-04 made correctly (`r2c4 = NS`) flipped to `NE`, after which the run needed 24
+branches instead of 19 and exhausted 512 actions. Branch accuracy on the four targets
+was unchanged (37/39/43/25%), and the own-state dev loss moved only 3% in 54 steps.
+The data was right and roughly 10× too small; see
+`output/eval/run-06-medium-dagger/analysis.md`.
 
 ### 5. Compare
 
